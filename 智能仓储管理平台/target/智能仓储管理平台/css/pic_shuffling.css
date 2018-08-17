@@ -1,0 +1,49 @@
+/*图片轮播*/
+#body1{
+    height: 400px;
+    width: 100%;
+    position: relative;
+}
+#picture{
+    width: 95%;
+    height: 400px;
+    position: relative;
+    margin: auto;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+#carousel{
+    width: 10000px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: left 1s;
+}
+#carousel li{
+    float: left;
+}
+#chooseul{
+    width: 150px;
+    position: relative;
+    margin: 0 auto;
+    bottom: -375px;
+}
+#chooseul li{
+    width: 15px;
+    height: 15px;
+    float: left;
+    position: relative;
+    margin-left: 20px;
+    border-radius: 15px;
+    border: 1px solid white;
+}
+.btr{
+    width: 15px;
+    height: 15px;
+    position: relative;
+
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: transparent;
+}
