@@ -39,6 +39,7 @@ public class UserController {
     public String register(){
     	return "账户开通";
     }
+
   	//注册页面
     @RequestMapping(value="/账户开通2",method=RequestMethod.GET)
     public String register2(@ModelAttribute("user") User user){
@@ -57,6 +58,7 @@ public class UserController {
         	return "账户开通3";
         }
     }
+
   	//登录页面
   	@RequestMapping(value="/进入系统",method=RequestMethod.GET)
     public String login(@ModelAttribute("login") User user){
@@ -134,6 +136,7 @@ public class UserController {
         	}
         }
     }
+
   	//进入管理员主页
   	@RequestMapping(value="/adhome")
     public String adhome(){
@@ -144,6 +147,7 @@ public class UserController {
     public String home(){
     	return "home";
     }
+
   	//个人中心页面
   	@RequestMapping(value="/个人中心")
     public String usermessage(@RequestParam String username,HttpServletRequest request){
@@ -169,6 +173,7 @@ public class UserController {
     	request.getSession().setAttribute("user", user);
     	return "用户管理";
     }
+
     //用户增加
   	@RequestMapping(value="/用户增加",method=RequestMethod.GET)
     public String adduser(@ModelAttribute("user") User user){
@@ -195,10 +200,7 @@ public class UserController {
             return "用户增加";
 		}
     }
-	
-	
-		
-		
+
 	//用户删除
   	@RequestMapping(value="/用户删除")
     public String deleteuser(@ModelAttribute("deletenormaluser") User user){
@@ -209,15 +211,7 @@ public class UserController {
     public String doDeleteUser(@RequestParam int id,@RequestParam String director,HttpServletRequest request){
   		User user=service.selectUserById(id);
   		if(user!=null) {                                                       //要删除的ID号存在
-  			if(user.getDirector().equals(director)&&user.getType()==1) {       //该ID的权限为用户，且上家为当前登录的管理员			
-//  				String ID="";
-//  	  			ID=id+"";
-//  	  			logger.info("要删除的id:"+ID);
-//  	  			logger.info("该id的上级应该是:"+director);
-//  	  			logger.info("该id的上级实际是:"+user.getDirector());
-//  	  			String Type="";
-//  	  			Type=user.getType()+"";
-//  	  			logger.info("该id的type:"+Type);
+  			if(user.getDirector().equals(director)&&user.getType()==1) {       //该ID的权限为用户，且上家为当前登录的管理员
   	  			service.deleteNormalUser(id);
   	  		    String deleteerror="0";
 				request.getSession().setAttribute("deleteerror", deleteerror);
@@ -239,14 +233,9 @@ public class UserController {
   		}
     }
 
-
   	@RequestMapping(value="/test")
     public String test(){
     	return "test";
     }
 
-	@RequestMapping(value="/index2")
-	public String index2(){
-		return "智能仓储管理系统（备份）";
-	}
 }
