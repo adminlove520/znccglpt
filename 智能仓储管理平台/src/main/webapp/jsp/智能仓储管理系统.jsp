@@ -80,7 +80,6 @@
             opacity: 0;
             transition: 1s;
             overflow: hidden;
-            background-color: red;
         }
         #service1{
             width: 100%;
@@ -256,8 +255,8 @@
     </div>
     <div class="blank"></div>
     <div id="body4">
-        <div id="cooperate" onmouseover="show()" onmouseleave="display()">
-            <div id="pic">
+        <div id="cooperate">
+            <div id="pic" onmouseover="show()" onmouseleave="display()">
                 <font size="5">合作客户</font><br>
                 <font size="3">Cooperative client</font><br>
                 <div id="line">
@@ -269,12 +268,11 @@
                     <div id="left" onclick="left()"><</div>
                     <div id="right" onclick="right()">></div>
                     <div id="brand">
-                        <img>
-                        <img>
-                        <img>
-                        <img>
-                        <img>
-                        <img>
+                        <div id="brand1"></div>
+                        <div id="brand2"></div>
+                        <div id="brand3"></div>
+                        <div id="brand4"></div>
+                        <div id="brand5"></div>
                     </div>
                 </div>
             </div>
