@@ -13,8 +13,6 @@ public interface UserDao {
     
     public List<User> selectUserByDirector(String director);//根据direcot查询 （检索管理员名下的用户表)
     
-//    public List<User> selectUserByDirector(int director);//根据direcot查询 （检索管理员名下的用户表)
-    
     public User selectUserById(int id);//根据Id查询 
     
     public void addNormalUser(User user); //普通用户添加

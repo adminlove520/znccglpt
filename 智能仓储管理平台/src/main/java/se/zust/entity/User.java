@@ -6,8 +6,7 @@ public class User {
     private String password;
     private String realname;
     private String phonumber;
-    private int type; 
-//    private int director;
+    private int type;
     private String director;
     private String userdescribe;
     
@@ -47,12 +46,6 @@ public class User {
 	public void setType(int type) {
 		this.type = type;
 	}
-//	public int getDirector() {
-//		return director;
-//	}
-//	public void setDirector(int director) {
-//		this.director = director;
-//	}
 	public String getDirector() {
 		return director;
 	}

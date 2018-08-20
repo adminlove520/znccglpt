@@ -11,9 +11,7 @@ public interface UserService {
 	public User selectUserByName(String username);
 	
 	public List<User> selectUserByDirector(String director);
-	
-//	public List<User> selectUserByDirector(int director);
-	
+
 	public User selectUserById(int id);
 	
 	public void addNormalUser(User user);
