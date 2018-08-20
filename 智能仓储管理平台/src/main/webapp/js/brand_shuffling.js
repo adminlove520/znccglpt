@@ -22,7 +22,6 @@ function changebrand(start,end){
     for(var i=0,j=start;i<=(end-start),j<=end;i++,j++){
         brand[i].style.backgroundImage="url("+brandarr[j]+")";
     }
-    console.log(start+":"+end);
     if(start==4){
         changebrand(-2,2);
     }

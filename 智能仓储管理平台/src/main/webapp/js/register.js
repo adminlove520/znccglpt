@@ -74,7 +74,6 @@ function timedMsg(){
 
 <!-- 注册验证 -->
 function check(){
-    console.log("点击");
     var userName=document.getElementById("username").value;
     var passWord=document.getElementById("password").value;
     var passWord2=document.getElementById("password2").value;
