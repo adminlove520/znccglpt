@@ -1,6 +1,7 @@
 package se.zust.controller;
 
-import se.zust.controller.UserController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import se.zust.entity.User;
 import se.zust.service.UserService;
 
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/ssm")
 //@Scope("prototype")
 public class UserController {
-	
+
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService service;
@@ -39,26 +40,40 @@ public class UserController {
     public String register(){
     	return "账户开通";
     }
-
   	//注册页面
     @RequestMapping(value="/账户开通2",method=RequestMethod.GET)
     public String register2(@ModelAttribute("user") User user){
     	return "账户开通2";
     }
     //注册处理
-  	@RequestMapping(value="/doRegister",method=RequestMethod.POST)
-    public String doregister(User user,User user2,@RequestParam String username, HttpServletRequest request){
-  		user=service.selectUserByName(username);
-        if (user!=null){                                       //用户名已注册
-            return "账户开通4";
-        }
-        else {                                                 //用户名未注册
-        	service.addUser(user2);
-        	request.setAttribute("user", user2);
-        	return "账户开通3";
-        }
-    }
-
+	@RequestMapping(value="/doRegister",method=RequestMethod.POST)
+	public ResponseEntity<User> doregister(@RequestParam(value = "username",required = false)String username,
+										   @RequestParam(value = "password",required = false)String password,
+										   @RequestParam(value = "realname",required = false)String realname,
+										   @RequestParam(value = "phonumber",required = false)String phonumber,
+										   HttpServletRequest request){
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setRealname(realname);
+		user.setPhonumber(phonumber);
+		user.setType(0);
+		user.setDirector(null);
+		service.addUser(user);
+		request.setAttribute("username", username);
+		request.setAttribute("password", password);
+		return new ResponseEntity<User>(HttpStatus.OK);
+	}
+	//开通成功
+	@RequestMapping(value="/账户开通3",method=RequestMethod.GET)
+	public String register3(){
+		return "账户开通3";
+	}
+	//开通失败
+	@RequestMapping(value="/账户开通4",method=RequestMethod.GET)
+	public String register4(){
+		return "账户开通4";
+	}
   	//登录页面
   	@RequestMapping(value="/进入系统",method=RequestMethod.GET)
     public String login(@ModelAttribute("login") User user){
@@ -136,7 +151,6 @@ public class UserController {
         	}
         }
     }
-
   	//进入管理员主页
   	@RequestMapping(value="/adhome")
     public String adhome(){
@@ -147,7 +161,6 @@ public class UserController {
     public String home(){
     	return "home";
     }
-
   	//个人中心页面
   	@RequestMapping(value="/个人中心")
     public String usermessage(@RequestParam String username,HttpServletRequest request){
@@ -173,7 +186,6 @@ public class UserController {
     	request.getSession().setAttribute("user", user);
     	return "用户管理";
     }
-
     //用户增加
   	@RequestMapping(value="/用户增加",method=RequestMethod.GET)
     public String adduser(@ModelAttribute("user") User user){
@@ -182,8 +194,6 @@ public class UserController {
   	//增加处理
 	@RequestMapping(value="/doAddUser",method=RequestMethod.POST)
     public String doAddUser(User user,User user2,@RequestParam String username,HttpServletRequest request){
-//		service.addNormalUser(user);
-//		return "用户增加";
 		user=service.selectUserByName(username);
 		logger.info(username);
 		if(user!=null) {                                       //待插入的用户已存在
@@ -200,7 +210,6 @@ public class UserController {
             return "用户增加";
 		}
     }
-
 	//用户删除
   	@RequestMapping(value="/用户删除")
     public String deleteuser(@ModelAttribute("deletenormaluser") User user){
@@ -233,6 +242,7 @@ public class UserController {
   		}
     }
 
+    //测试
   	@RequestMapping(value="/test")
     public String test(){
     	return "test";

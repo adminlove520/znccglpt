@@ -133,16 +133,13 @@
             </li>
         </ul>
     </div>
-<% 
-    String username=request.getParameter("username");
-    String password=request.getParameter("password");
-%>
+
     <div id="body1">
         <div id="box1">
             <div id="box1-1">账户名称</div>
-            <input id="box1-2" type="text" name="username" value="<%= username%>" disabled="true">
+            <input id="box1-2" type="text" name="username" disabled="true">
             <div id="box1-3">账户密码</div>
-            <input id="box1-4" type="text" name="password" value="<%= password%>" disabled="true">
+            <input id="box1-4" type="text" name="password" disabled="true">
             <form action="/ssm/进入系统">
                 <input id="box1-5" type="text" name="username" value="账号开通成功！" disabled="true">
                 <font id="box1-9"><span id="time">10</span>秒后自动回到首页</font>
@@ -187,4 +184,12 @@
         <div id="bottom-3"><font color="white">Copyright ©2016 广州罗维尼信息科技有限公司 版权所有 | 粤ICP备05001008号</font></div>
     </div>
 </body>
+<script type="text/javascript">
+    var parameter = window.location.href.split("?")[1];
+    var parameterList = parameter.split("&");
+    var username = decodeURIComponent(parameterList[0]);
+    var password = parameterList[1];
+    document.getElementById("box1-2").value = username;
+    document.getElementById("box1-4").value = password;
+</script>
 </html>

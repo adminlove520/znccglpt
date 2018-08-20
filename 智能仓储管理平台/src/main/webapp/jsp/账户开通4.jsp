@@ -126,16 +126,12 @@
             </li>
         </ul>
     </div>
-<% 
-    String username=request.getParameter("username");
-    String password=request.getParameter("password");
-%>
     <div id="body1">
         <div id="box1">
             <div id="box1-1">账户名称</div>
-            <input id="box1-2" type="text" name="username" value="<%= username%>" disabled="true">
+            <input id="box1-2" type="text" name="username" disabled="true">
             <div id="box1-3">账户密码</div>
-            <input id="box1-4" type="text" name="password" value="<%= password%>" disabled="true">
+            <input id="box1-4" type="text" name="password" disabled="true">
             <form action="/ssm/账户开通2">
                 <input id="box1-7" type="text" name="username" value="账号已被注册，请重新注册账号！" disabled="true">
                 <input id="box1-8" type="submit" name="submit" value="重新注册">
@@ -153,10 +149,18 @@
         </div>
         <div id="bottom-2">
             <div id="box">关注微博</div>
-            <div id="QRcode1"><img src="picture/QRcode1.png" width="100%" height="100%"></div>
-            <div id="QRcode2"><img src="picture/QRcode2.png" width="100%" height="100%"></div>
+            <div id="QRcode1"><img src="/picture/QRcode1.png" width="100%" height="100%"></div>
+            <div id="QRcode2"><img src="/picture/QRcode2.png" width="100%" height="100%"></div>
         </div>
         <div id="bottom-3"><font color="white">Copyright ©2016 广州罗维尼信息科技有限公司 版权所有 | 粤ICP备05001008号</font></div>
     </div>
 </body>
+<script type="text/javascript">
+    var parameter = window.location.href.split("?")[1];
+    var parameterList = parameter.split("&");
+    var username = decodeURIComponent(parameterList[0]);
+    var password = parameterList[1];
+    document.getElementById("box1-2").value = username;
+    document.getElementById("box1-4").value = password;
+</script>
 </html>

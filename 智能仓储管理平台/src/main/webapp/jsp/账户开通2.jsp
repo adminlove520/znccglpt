@@ -6,13 +6,14 @@
     <title>账户开通2</title>
     <link rel="stylesheet" href="/css/title.css">
     <link rel="stylesheet" href="/css/button.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
     <style type="text/css">
-        #body1{
+        #body{
             width: 100%;
             height: 630px;
             position: relative;
         }
-        #box1{
+        #info{
             width: 325px;
             height: 440px;
             position: absolute;
@@ -22,7 +23,7 @@
             right: 0;
             bottom: 0;
         }
-        #box1-0{
+        #box1{
             width: 325px;
             height: 50px;
             font-size: 30px;
@@ -31,7 +32,7 @@
             position: relative;
             top: -50px;
         }
-        #box1-1{
+        #box2{
             width: 120px;
             height: 34px;
             float: left;
@@ -43,7 +44,7 @@
             position: relative;
             top: -30px;
         }
-        #box1-2{
+        #username{
             width: 200px;
             height: 30px;
             font-size: 16px;
@@ -51,7 +52,7 @@
             position: relative;
             top: -30px;
         }
-        #box1-3{
+        #box3{
             width: 120px;
             height: 34px;
             float: left;
@@ -63,7 +64,7 @@
             top: 0px;
             background-color: #6B6B6B;
         }
-        #box1-4{
+        #password{
             width: 200px;
             height: 30px;
             float: left;
@@ -71,7 +72,7 @@
             position: relative;
             top: 0px;
         }
-        #box1-5{
+        #box4{
             width: 120px;
             height: 34px;
             float: left;
@@ -83,7 +84,7 @@
             top: 10px;
             background-color: #6B6B6B;
         }
-        #box1-6{
+        #password2{
             width: 200px;
             height: 30px;
             float: left;
@@ -91,7 +92,7 @@
             position: relative;
             top: 10px;
         }
-        #box1-12{
+        #box5{
             width: 120px;
             height: 34px;
             float: left;
@@ -103,7 +104,7 @@
             top: 40px;
             background-color: #6B6B6B;
         }
-        #box1-13{
+        #realname{
             width: 200px;
             height: 30px;
             float: left;
@@ -111,7 +112,7 @@
             position: relative;
             top: 40px;
         }
-        #box1-7{
+        #box6{
             width: 120px;
             height: 34px;
             float: left;
@@ -123,7 +124,7 @@
             top: 70px;
             background-color: #6B6B6B;
         }
-        #box1-8{
+        #phonumber{
             width: 200px;
             height: 30px;
             float: left;
@@ -131,7 +132,7 @@
             position: relative;
             top: 70px;
         }
-        #box1-9{
+        #box7{
             width: 120px;
             height: 34px;
             float: left;
@@ -143,7 +144,7 @@
             top: 100px;
             background-color: #6B6B6B;
         }
-        #box1-10{
+        #vcode{
             width: 201px;
             height: 30px;
             float: right;
@@ -151,7 +152,7 @@
             position: relative;
             top: 100px;
         }
-        #box1-11{
+        #register{
             width: 200px;
             height: 30px;
             float: left;
@@ -239,31 +240,29 @@
             </li>
         </ul>
     </div>
-    <div id="body1">
-        <div id="box1">
-            <div id="box1-0"><font>账号注册</font></div>
-            <sf:form action="/ssm/doRegister" modelAttribute="user" method="post" name="load" onsubmit="return check(this);">
-                <div id="box1-1">账户名称</div>
-                <sf:input id="box1-2" type="text" path="username" required="true" placeholder="不支持中文和特殊字符" onclick="text()"/>
-                <div id="box1-3">设置密码</div>
-                <sf:input id="box1-4" type="password" path="password" required="true" placeholder="设置账号密码" onKeyUp="pwStrength(this.value)" onBlur="pwStrength(this.value)"/>
-                <div id="safe">
-                    <div id="safename">安全系数：</div>
-                    <div id="strength_L" bgcolor="#eeeeee">低</div>
-                    <div id="strength_M" bgcolor="#eeeeee">中</div>
-                    <div id="strength_H" bgcolor="#eeeeee">高</div>
-                </div>
-                <div id="box1-5">确认密码</div>
-                <input id="box1-6" type="password" name="password2" required="true" placeholder="重新输入密码">
-                <div id="box1-12">真实姓名</div>
-                <sf:input id="box1-13" type="text" path="realname" required="true" placeholder="请输入真实姓名"/>
-                <div id="box1-7">手机号码</div>
-                <sf:input id="box1-8" type="text" path="phonumber" required="true" placeholder="请输入手机号"/>
-                <input id="box1-9" type="button" name="获取验证码" value="获取验证码" onClick="timedMsg()">
-                <input id="box1-10" type="text" name="identifying" required="true" placeholder="请输入手机收到的验证码">
-                <input id="box1-11" type="submit" value="下一步">
-                <div id="blank"></div>
-            </sf:form>
+    <div id="body">
+        <div id="info">
+            <div id="box1"><font>账号注册</font></div>
+            <div id="box2">账户名称</div>
+            <input id="username" type="text" placeholder="不支持中文和特殊字符"/>
+            <div id="box3">设置密码</div>
+            <input id="password" type="password" placeholder="设置账号密码" onKeyUp="pwStrength(this.value)" onBlur="pwStrength(this.value)"/>
+            <div id="safe">
+                <div id="safename">安全系数：</div>
+                <div id="strength_L" bgcolor="#eeeeee">低</div>
+                <div id="strength_M" bgcolor="#eeeeee">中</div>
+                <div id="strength_H" bgcolor="#eeeeee">高</div>
+            </div>
+            <div id="box4">确认密码</div>
+            <input id="password2" type="password" placeholder="重新输入密码">
+            <div id="box5">真实姓名</div>
+            <input id="realname" type="text" placeholder="请输入真实姓名"/>
+            <div id="box6">手机号码</div>
+            <input id="phonumber" type="text" placeholder="请输入手机号"/>
+            <input id="box7" type="button" value="获取验证码" onClick="timedMsg()">
+            <input id="vcode" type="text" placeholder="请输入手机收到的验证码">
+            <input id="register" type="submit" value="下一步" onclick="check()">
+            <div id="blank"></div>
         </div>
     </div>
     <div id="bottom">
@@ -282,120 +281,6 @@
         </div>
         <div id="bottom-3"><font color="white">Copyright ©2016 广州罗维尼信息科技有限公司 版权所有 | 粤ICP备05001008号</font></div>
     </div>
-    <!-- 密码强度 -->
-    <script language=javascript>  
-        function checkStrong(sPW){
-            if(sPW.length<=3)
-                return 1;
-            else if(sPW.length<=6){
-                return 2;
-            }
-            else if(sPW.length<=9){
-                return 3;
-            }
-        }
-        function pwStrength(pwd){    
-            Dfault_color="#eeeeee";   
-            L_color="#FF0000";
-            M_color="#FF9900";
-            H_color="#33CC00";
-            if (pwd==null||pwd==''){    
-                Lcolor=Mcolor=Hcolor=Dfault_color;  
-            }    
-            else{    
-                S_level=checkStrong(pwd);    
-                switch(S_level) {    
-                case 0:    
-                    Lcolor=Mcolor=Hcolor=Dfault_color;  
-                    break;  
-                case 1:    
-                    Lcolor=L_color;  
-                    Mcolor=Hcolor=Dfault_color;  
-                    break;    
-                case 2:    
-                    Lcolor=Mcolor=M_color;    
-                    Hcolor=Dfault_color;    
-                    break;    
-                default:    
-                    Lcolor=Mcolor=Hcolor=H_color;    
-                }    
-            }    
-            document.getElementById("strength_L").style.background=Lcolor;    
-            document.getElementById("strength_M").style.background=Mcolor;    
-            document.getElementById("strength_H").style.background=Hcolor;    
-            return;  
-        }  
-    </script>
-    <!-- 验证码 -->
-    <script type="text/javascript">
-        var time=3;
-        var t;
-        var x=Math.random();
-        var pho;
-        function timedMsg(){
-            pho=document.getElementById('box1-8').value;
-            if(pho==''){
-                alert("请输入手机号用以接收验证码"+'\n');
-            }
-            else if(pho.length<11){
-                alert("请输入正确的手机号"+'\n');
-            }
-            else if(pho.length>11){
-                alert("请输入正确的手机号"+'\n');
-            }
-            else{
-                if(time==0){
-                    y=Math.floor(100000+x*899999);
-                    document.getElementById("box1-9").value="获取验证码";
-                    document.getElementById("blank").style.display="none";
-                    time=10;
-                    alert("您的手机号为："+pho+'\n'+'\n'+"随机验证码为："+y+'\n');
-                    clearTimeout(t);
-                }
-                else{
-                    document.getElementById("blank").style.display="block";
-                    document.getElementById("box1-9").value="重新发送("+time+")"; 
-                    time--;
-                    t=setTimeout('timedMsg()',1000);
-                }
-            }
-        }
-    </script>
-    <!-- 密码验证 -->
-    <script>
-        function check(form){
-            var a=form.password;
-            var b=form.password2;
-            var c=Math.floor(100000+x*899999);
-            var d=document.getElementById("box1-10").value;
-            if (a.value!=b.value){
-                b.oninvalid();
-                return false;
-            }
-            if(c!=d){
-                alert("验证码错误！请重新输入！");
-                window.location.href="/ssm/账户开通2"; 
-                window.event.returnValue=false;
-            }
-            return true;
-        }
-        onload=function(){
-            var b=document.forms["load"].password2;
-            b.oninvalid=function(){
-                this.setCustomValidity("密码不一致，请重新输入");
-            }
-            b.oninput=function(){
-                this.setCustomValidity("");
-            }
-        }
-    </script>
-    <script>
-        document.getElementById("box1-9").onmouseover=function(){ 
-            this.style.cursor='pointer';
-        }
-        document.getElementById("box1-11").onmouseover=function(){ 
-            this.style.cursor='pointer';
-        }
-    </script>
+    <script type="text/javascript" src="/js/register.js"></script>
 </body>
 </html>

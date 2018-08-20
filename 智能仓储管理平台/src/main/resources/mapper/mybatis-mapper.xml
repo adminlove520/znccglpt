@@ -19,8 +19,8 @@
 
     <!-- 管理员注册 -->
     <insert id="addUser" parameterType="se.zust.entity.User">
-        INSERT INTO user(username,password,realname,phonumber,type,director) VALUES 
-        (#{username},#{password},#{realname},#{phonumber},"0","null")
+        INSERT INTO user(username,password,realname,phonumber,type,director) VALUES
+        (#{username},#{password},#{realname},#{phonumber},#{type},#{director})
     </insert>
     
     <!-- 根据用户名查询（登录） -->
