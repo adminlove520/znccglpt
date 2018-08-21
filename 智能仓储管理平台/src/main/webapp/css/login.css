@@ -1,0 +1,75 @@
+/*用户登录*/
+*{
+	margin:0;
+	padding:0;
+}
+html{
+	height:100%;
+}
+body{
+	width: 100%;
+	height: 100%;
+}
+#quit{
+	width: 15px;
+	height: 15px;
+	float: right;
+	cursor: pointer;
+	margin-top: 2px;
+	margin-right: 2px;
+	background-size: 100% 100%;
+	background-image: url(/picture/system/quit.png);
+}
+#left{
+	width: 83.5%;
+	height: 100%;
+	float: left;
+	background-size: 100% 100%;
+	background-image: url(/picture/system/u1.jpg);
+}
+#right{
+	width: 16.5%;
+	height: 100%;
+	position: relative;
+	float: right;
+	text-align:center;
+	background-size: 100% 100%;
+	background-image: url(/picture/system/u2.jpg);
+}
+#loginInput{
+	width: 80%;
+	height: 40%;
+	position: absolute;
+	margin: auto;
+	top: -200px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.loginInput{
+	width: 170px;
+	height: 30px;
+	margin-top: 25px;
+}
+.loginRadio{
+	margin-top: 25px;
+}
+#user{
+	float: left;
+	margin-left: 25px;
+}
+#admin{
+	float: right;
+	margin-right: 25px;
+}
+#login{
+	width: 80px;
+	height: 80px;
+	color: #FFFFFF;
+	font-size: 16px;
+	margin-top: 25px;
+	cursor: pointer;
+	border:0;
+	border-radius: 40px;
+	background-color: rgba(22,153,213,1);
+}
