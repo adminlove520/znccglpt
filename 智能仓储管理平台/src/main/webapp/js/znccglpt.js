@@ -37,7 +37,7 @@ $(".list").bind("click",function(){
 });
 // 个人中心
 $("#center").click(function (){
-    window.location.href = "个人中心?"+username+"";
+    window.location.href = "个人中心?"+username+"&"+type+"";
 });
 
 //退出
