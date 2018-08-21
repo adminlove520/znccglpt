@@ -119,10 +119,22 @@ function check(){
                 phonumber: phonumber
             },
             success: function(data) {
-                window.location.href = "账户开通3?"+username+"&"+password+"";
+                // console.log("success");
+                // console.log(data.result);
+                switch(data.result) {
+                    case 1:
+                        // console.log("该用户已注册!")
+                        window.location.href = "账户开通4?"+username+"&"+password+"";
+                        break;
+                    case 0:
+                        // console.log("注册成功!")
+                        window.location.href = "账户开通3?"+username+"&"+password+"";
+                        break;
+                }
             },
             error:function (data) {
-                window.location.href = "账户开通4?"+username+"&"+password+"";
+                // console.log("error");
+                // console.log(data);
             }
         });
     }

@@ -45,22 +45,31 @@ public class UserController {
     }
     //注册处理
 	@RequestMapping(value="/doRegister",method=RequestMethod.POST)
-	public ResponseEntity<User> doregister(@RequestParam(value = "username",required = false)String username,
+	@ResponseBody
+	public JSONObject doregister(@RequestParam(value = "username",required = false)String username,
 										   @RequestParam(value = "password",required = false)String password,
 										   @RequestParam(value = "realname",required = false)String realname,
 										   @RequestParam(value = "phonumber",required = false)String phonumber,
 										   HttpServletRequest request){
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setRealname(realname);
-		user.setPhonumber(phonumber);
-		user.setType(0);
-		user.setDirector(null);
-		service.addUser(user);
-		request.setAttribute("username", username);
-		request.setAttribute("password", password);
-		return new ResponseEntity<User>(HttpStatus.OK);
+		JSONObject jsonObject = new JSONObject();
+		User user1 = service.selectUserByName(username);
+		if(user1 != null) {
+			jsonObject.put("result", 1); //该用户已注册
+		}
+		else{
+			User user2 = new User() ;
+			user2.setUsername(username);
+			user2.setPassword(password);
+			user2.setRealname(realname);
+			user2.setPhonumber(phonumber);
+			user2.setType(0);
+			user2.setDirector(null);
+			service.addUser(user2);
+			request.setAttribute("username", username);
+			request.setAttribute("password", password);
+			jsonObject.put("result", 0); //注册成功
+		}
+		return jsonObject;
 	}
 	//开通成功
 	@RequestMapping(value="/账户开通3",method=RequestMethod.GET)

@@ -178,8 +178,8 @@
         </div>
         <div id="bottom-2">
             <div id="box">关注微博</div>
-            <div id="QRcode1"><img src="picture/QRcode1.png" width="100%" height="100%"></div>
-            <div id="QRcode2"><img src="picture/QRcode2.png" width="100%" height="100%"></div>
+            <div id="QRcode1"><img src="/picture/QRcode1.png" width="100%" height="100%"></div>
+            <div id="QRcode2"><img src="/picture/QRcode2.png" width="100%" height="100%"></div>
         </div>
         <div id="bottom-3"><font color="white">Copyright ©2016 广州罗维尼信息科技有限公司 版权所有 | 粤ICP备05001008号</font></div>
     </div>
