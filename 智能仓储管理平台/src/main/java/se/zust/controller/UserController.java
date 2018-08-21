@@ -1,7 +1,9 @@
 package se.zust.controller;
 
+import net.sf.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import se.zust.entity.User;
 import se.zust.service.UserService;
 
@@ -9,10 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -79,78 +77,29 @@ public class UserController {
     public String login(@ModelAttribute("login") User user){
   	    return "进入系统";
     }
-  	//登录处理
-  	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
-    public String doLogin(@ModelAttribute("usermanage") User user,
-    		              @RequestParam String username, 
-  	                      @RequestParam String password,
-  	                      @RequestParam int type,
-  	                      HttpServletRequest request){
-        user = service.selectUserByName(username);             //搜索登录的用户名
-        if(type==1) {                                          //用户
-        	if (user != null){                                 //用户名存在
-        		if (password.equals(user.getPassword())){      //密码正确
-        			if (user.getType() == 1){
-        				request.getSession().setAttribute("user", user);
-        				                                       //type=1  
-        				String loginerror="0";
-          				request.getSession().setAttribute("loginerror", loginerror);  
-                    	return "transfer";                     //用户名和密码正确，且该用户权限type=1
-                    }
-        			else{
-        				String loginerror="1";
-          				request.getSession().setAttribute("loginerror", loginerror); 
-          				logger.info(loginerror);
-        				return "进入系统";                        //用户名和密码正确，但该用户权限type=!1
-        			}
-        		}
-        		else {
-        			String loginerror="1";
-      				request.getSession().setAttribute("loginerror", loginerror);
-      				logger.info(loginerror);
-        			return "进入系统";                            //用户名存在但密码错误
-        		}
-        	}
-        	else {
-        		String loginerror="2";
-  				request.getSession().setAttribute("loginerror", loginerror);
-  				logger.info(loginerror);
-        		return "进入系统";                                //用户名不存在
-        	}
-        }
-        else{                                                  //管理员
-        	if (user != null){                                 //用户名存在
-        		if (password.equals(user.getPassword())){      //密码正确
-        			if (user.getType() == 0){   
-                        request.getSession().setAttribute("user", user);
-        				                                       //type=0 
-                        String loginerror="0";
-          				request.getSession().setAttribute("loginerror", loginerror); 
-          				logger.info(loginerror);
-                    	return "adtransfer";                   //用户名和密码正确，且该用户权限type=0
-                    }
-        			else{
-        				String loginerror="1";
-          				request.getSession().setAttribute("loginerror", loginerror);  
-          				logger.info(loginerror);
-        				return "进入系统";                        //用户名和密码正确，但该用户权限type=!0
-        			}
-        		}
-        		else {   	
-    				String loginerror="1";
-      				request.getSession().setAttribute("loginerror", loginerror); 
-      				logger.info(loginerror);
-        			return "进入系统";                            //用户名存在但密码错误
-        		}
-        	}
-        	else {	
-        		String loginerror="2";
-  				request.getSession().setAttribute("loginerror", loginerror); 
-  				logger.info(loginerror);
-        		return "进入系统";                                //用户名不存在
-        	}
-        }
-    }
+
+	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject doLogin(@RequestParam(value = "username",required = false)String username,
+                              @RequestParam(value = "password",required = false)String password,
+                              @RequestParam(value = "type",required = false)int type){
+        JSONObject jsonObject = new JSONObject();
+		User user = service.selectUserByName(username);
+		if(user == null){
+			jsonObject.put("result", 1); //该用户未注册
+		}
+		else if(!user.getPassword().equals(password)){
+			jsonObject.put("result", 2); //用户名或密码错误
+		}
+		else if(user.getType() != type){
+			jsonObject.put("result", 3); //权限错误
+		}
+		else{
+			jsonObject.put("result", 0); //登录成功
+			jsonObject.put("type",type);
+		}
+		return jsonObject;
+	}
   	//进入管理员主页
   	@RequestMapping(value="/adhome")
     public String adhome(){
