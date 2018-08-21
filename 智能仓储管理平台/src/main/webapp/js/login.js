@@ -40,12 +40,7 @@ $("#login").click(function (){
                         break;
                     case 0:
                         // console.log("登录成功!")
-                        if(data.type == 0){
-                            window.location.href = "adhome?"+username+"";
-                        }
-                        if(data.type == 1){
-                            window.location.href = "home?"+username+"";
-                        }
+                        window.location.href = "znccglpt?"+username+"&"+data.type+"";
                         break;
                 }
             },

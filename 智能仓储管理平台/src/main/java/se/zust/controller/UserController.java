@@ -86,7 +86,7 @@ public class UserController {
     public String login(@ModelAttribute("login") User user){
   	    return "进入系统";
     }
-
+	//登录处理
 	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject doLogin(@RequestParam(value = "username",required = false)String username,
@@ -109,15 +109,10 @@ public class UserController {
 		}
 		return jsonObject;
 	}
-  	//进入管理员主页
-  	@RequestMapping(value="/adhome")
-    public String adhome(){
-    	return "adhome";
-    }
-    //进入用户主页
-  	@RequestMapping(value="/home")
-    public String home(){
-    	return "home";
+	//进入主页
+	@RequestMapping(value="/znccglpt")
+    public String znccglpt(){
+    	return "znccglpt";
     }
   	//个人中心页面
   	@RequestMapping(value="/个人中心")
@@ -203,7 +198,7 @@ public class UserController {
     //测试
   	@RequestMapping(value="/test")
     public String test(){
-    	return "test";
+    	return "adhome";
     }
 
 }

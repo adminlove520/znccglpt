@@ -1,0 +1,107 @@
+html,body{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: rgb(204,204,204);
+}
+a{
+    color: #FFF;
+    text-decoration: none;
+}
+#top{
+	width: 100%;
+	height: 65px;
+	background-color: #FFFFFF;
+	vertical-align: middle;
+}
+#icon{
+	width: 45px;
+	height: 45px;
+	float: left;
+	margin: 10px 10px 10px 25px;
+}
+#name{
+	width: 250px;
+	float: left;
+	margin-left: 10px;
+	font-size: 20px;
+	line-height: 65px;
+}
+#head{
+	width: 45px;
+	height: 45px;
+	float: right;
+	cursor: pointer;
+	margin: 10px 15px 10px 10px;
+	background-size: 100% 100%;
+	background-image: url("/picture/system/1.jpeg");
+}
+#LoginName{
+	float: right;
+	line-height: 65px;
+}
+#set{
+	width: 140px;
+	height: 135px;
+	position: absolute;
+	top: 65px;
+	right: 6px;
+	z-index: 999;
+	box-shadow: 3px 3px 5px #888888;
+	display: none;
+	border: 1px solid #DEDEDE;
+	border-radius: 5px;
+}
+#set ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	color: #000;
+	text-align: center;	
+	background-color: #FFF;
+	border-radius: 5px;
+}
+#set ul li{
+	height: 45px;
+	line-height: 45px;
+}
+#set ul li:nth-child(2){
+	border-top: 1px solid #DEDEDE;
+	border-bottom: 1px solid #DEDEDE;
+}
+#set ul li:hover{
+	cursor: pointer;
+	background-color: #DEDEDE;
+}
+#left{
+	width: 19%;
+	height: 100%;
+	float: left;
+	color: #FFFFFF;
+	background-color: rgba(51, 68, 83, 1);
+}
+#menu{
+	padding: 0;
+    margin-top: 40px;
+    list-style: none;
+    text-align: center;
+}
+#menu li{
+    height: 45px;
+    line-height: 40px;
+    margin-top: 10px;
+	border-left: 3px solid transparent ;
+}
+#menu li:hover{
+    cursor: pointer;
+    border-left: 3px solid #7FFF00;
+    background-color: #526C85;
+}
+#right{
+    width: 79%;
+    height: 100%;
+	float: left;
+	margin: 13px;
+    background-color: #FFFFFF;
+}
