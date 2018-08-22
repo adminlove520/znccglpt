@@ -117,14 +117,43 @@ public class UserController {
     public String usercenter(){
     	return "znccglpt_center";
     }
+	//个人信息
+	@RequestMapping(value="/znccglpt_userinfo")
+	public String userinfo(){
+		return "znccglpt_userinfo";
+	}
+	//个人信息展示
+	@RequestMapping(value="/doSelect",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject doSelect(@RequestParam(value = "username",required = false)String username){
+		JSONObject jsonObject = new JSONObject();
+		User user = service.selectUserByName(username);
+		jsonObject.put("user",user);
+		return jsonObject;
+	}
   	//个人信息更新
   	@RequestMapping(value="/doUpdate",method=RequestMethod.POST)
-    public String doUpdate(User user,HttpServletRequest request){
+	@ResponseBody
+    public JSONObject doUpdate(@RequestParam(value = "id",required = false)int id,
+							   @RequestParam(value = "username",required = false)String username,
+							   @RequestParam(value = "password",required = false)String password,
+							   @RequestParam(value = "realname",required = false)String realname,
+							   @RequestParam(value = "phonumber",required = false)String phonumber,
+							   @RequestParam(value = "type",required = false)int type,
+							   @RequestParam(value = "director",required = false)String director,
+							   @RequestParam(value = "userdescribe",required = false)String userdescribe){
+		JSONObject jsonObject = new JSONObject();
+		User user = new User() ;
+		user.setId(id);
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setRealname(realname);
+		user.setPhonumber(phonumber);
+		user.setType(type);
+		user.setDirector(director);
+		user.setUserdescribe(userdescribe);
 		service.updateUser(user);
-		request.setAttribute("user", user);
-		String updateerror="55";
-		request.getSession().setAttribute("updateerror", updateerror);
-    	return "znccglpt_center";
+    	return jsonObject;
     }
     //用户管理页面
   	@RequestMapping(value="/用户管理",method=RequestMethod.GET)
