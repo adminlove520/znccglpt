@@ -25,8 +25,8 @@ $("#head").click(function (){
 	}
 });
 var Url = ["",
-    "znccglpt_userinfo",
-    "znccglpt_usermanage"
+    "znccglpt_userinfo?"+username+"",
+    "znccglpt_usermanage?"+username+""
 ];
 $(".list").bind("click",function(){
 	$(this).css("border-left","3px solid #7FFF00");
