@@ -9,14 +9,7 @@ if(type == 0){
 if(type == 1){
 	$("#LoginName").html(username+"[用户]");
 }
-var Url = ["",
-	"inManagement",
-	"select",
-	"check",
-	"outManagement",
-	"movesRecord",
-	"warehouseManagement"
-];
+//下拉框
 var isShow = 0;		//0为隐藏，1为显示
 $("#head").click(function (){
 	if (0 == isShow) {
@@ -27,17 +20,22 @@ $("#head").click(function (){
 		isShow = 0
 	}
 });
+var Url = ["",
+    "znccglpt_userinfo",
+    "znccglpt_usermanage",
+    "check"
+];
 $(".list").bind("click",function(){
 	$(this).css("border-left","3px solid #7FFF00");
 	$(this).css("background-color","#526C85");
 	$(this).siblings().css("border-left","3px solid transparent");
 	$(this).siblings().css("background-color","rgba(51, 68, 83, 1)");
-	$('#form1').attr('action',Url[$(this).attr("id")]);
-	$('#form1').submit();
+	$('#form').attr('action',Url[$(this).attr("id")]);
+	$('#form').submit();
 });
-// 个人中心
-$("#center").click(function (){
-    window.location.href = "znccglpt_center?"+username+"&"+type+"";
+//返回
+$("#back").click(function (){
+    window.location.href = "znccglpt?"+username+"&"+type+"";
 });
 
 //退出

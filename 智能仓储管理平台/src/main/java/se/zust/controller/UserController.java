@@ -1,8 +1,6 @@
 package se.zust.controller;
 
 import net.sf.json.JSONObject;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.zust.entity.User;
 import se.zust.service.UserService;
@@ -115,11 +113,9 @@ public class UserController {
     	return "znccglpt";
     }
   	//个人中心页面
-  	@RequestMapping(value="/个人中心")
-    public String usermessage(@RequestParam String username,HttpServletRequest request){
-  		User user = service.selectUserByName(username);
-  		request.getSession().setAttribute("user", user);
-    	return "个人中心";
+  	@RequestMapping(value="/znccglpt_center")
+    public String usercenter(){
+    	return "znccglpt_center";
     }
   	//个人信息更新
   	@RequestMapping(value="/doUpdate",method=RequestMethod.POST)
@@ -128,7 +124,7 @@ public class UserController {
 		request.setAttribute("user", user);
 		String updateerror="55";
 		request.getSession().setAttribute("updateerror", updateerror);
-    	return "个人中心";
+    	return "znccglpt_center";
     }
     //用户管理页面
   	@RequestMapping(value="/用户管理",method=RequestMethod.GET)
@@ -198,7 +194,7 @@ public class UserController {
     //测试
   	@RequestMapping(value="/test")
     public String test(){
-    	return "adhome";
+    	return "个人中心（原件备份）";
     }
 
 }
