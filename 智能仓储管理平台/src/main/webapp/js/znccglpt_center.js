@@ -1,4 +1,4 @@
-﻿// znccglpt
+﻿// 个人中心
 var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
@@ -8,6 +8,10 @@ if(type == 0){
 }
 if(type == 1){
 	$("#LoginName").html(username+"[用户]");
+}
+//进入该页面自动加载个人资料页面
+window.onload=function(){
+    $("#1").trigger("click");
 }
 //下拉框
 var isShow = 0;		//0为隐藏，1为显示
@@ -22,8 +26,7 @@ $("#head").click(function (){
 });
 var Url = ["",
     "znccglpt_userinfo",
-    "znccglpt_usermanage",
-    "check"
+    "znccglpt_usermanage"
 ];
 $(".list").bind("click",function(){
 	$(this).css("border-left","3px solid #7FFF00");
@@ -37,7 +40,6 @@ $(".list").bind("click",function(){
 $("#back").click(function (){
     window.location.href = "znccglpt?"+username+"&"+type+"";
 });
-
 //退出
 $("#logout").click(function (){
     window.location.href = "进入系统";

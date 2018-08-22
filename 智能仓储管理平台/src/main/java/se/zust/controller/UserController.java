@@ -107,12 +107,12 @@ public class UserController {
 		}
 		return jsonObject;
 	}
-	//进入主页
+	//系统主页
 	@RequestMapping(value="/znccglpt")
     public String znccglpt(){
     	return "znccglpt";
     }
-  	//个人中心页面
+  	//个人中心
   	@RequestMapping(value="/znccglpt_center")
     public String usercenter(){
     	return "znccglpt_center";
@@ -194,7 +194,7 @@ public class UserController {
     //测试
   	@RequestMapping(value="/test")
     public String test(){
-    	return "个人中心（原件备份）";
+    	return "test";
     }
 
 }
