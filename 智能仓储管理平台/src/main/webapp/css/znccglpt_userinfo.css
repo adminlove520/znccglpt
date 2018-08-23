@@ -1,0 +1,94 @@
+/*个人资料*/
+#userinfo{
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  margin: auto;
+  top: 20px;
+  left: 0;
+  right: 0;
+}
+#title{
+    height: 50px;
+    width: 50%;
+    font-size: 35px;
+    border-bottom: solid #CCCCCC;
+}
+#info{
+    height: 98%;
+    width: 100%;
+    margin-top: 5px;
+}
+#table{
+    width: 100%;
+    height: 80%;
+    font-size: 25px;
+}
+#table tr td input{
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+}
+#table tr:nth-child(6){
+    height: 150px;
+}
+#table tr:nth-child(1) td{
+    vertical-align: top;
+    padding-top: 8px;
+}
+#table tr:nth-child(6) td{
+    vertical-align: top;
+    padding-top: 8px;
+}
+#userphoto{
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    /*right: 0;*/
+    bottom: 0;
+    background-size: 100% 100%;
+    background-image: url(/picture/system/1.jpeg);
+}
+#userphotoinfo {
+    width: 100px;
+    height: 110px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 20px;
+}
+#userdescribe{
+    width: 100%;
+    height: 140px;
+    color: black;
+    font-size: 25px;
+}
+#button{
+    width: 100%;
+    height: 14%;
+    position: relative;
+}
+#button button{
+    width: 100px;
+    height: 50px;
+    font-size: 25px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    border-radius: 10%;
+}
+#change{
+    left: 300px;
+}
+#update{
+    right: 300px;
+}
+#button button:hover{
+    background-color: #CCCCCC;
+}

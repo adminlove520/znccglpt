@@ -26,7 +26,15 @@ $.ajax({
         // console.log(data);
     }
 });
-//保存修改
+//修改
+$("#change").click(function (){
+    //可修改内容仅限密码，真实姓名，联系方式，个人简介
+    $('#password').attr("disabled",false);
+    $('#realname').attr("disabled",false);
+    $('#phonumber').attr("disabled",false);
+    $('#userdescribe').attr("disabled",false);
+});
+//更新
 $("#update").click(function (){
     var id = $("#id").val();
     var username = $("#username").val();
