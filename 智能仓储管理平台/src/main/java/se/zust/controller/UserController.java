@@ -122,7 +122,7 @@ public class UserController {
 	public String userinfo(){
 		return "znccglpt_userinfo";
 	}
-	//个人信息展示
+	//根据用户名查询
 	@RequestMapping(value="/doSelect",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject doSelect(@RequestParam(value = "username",required = false)String username){
@@ -155,70 +155,11 @@ public class UserController {
 		service.updateUser(user);
     	return jsonObject;
     }
-    //用户管理页面
-  	@RequestMapping(value="/用户管理",method=RequestMethod.GET)
-    public String usermanage(@RequestParam String username,HttpServletRequest request){
-  		User user = service.selectUserByName(username);
-  		List<User> users = service.selectUserByDirector(username);
-    	request.setAttribute("users", users);
-    	request.getSession().setAttribute("user", user);
-    	return "用户管理";
-    }
-    //用户增加
-  	@RequestMapping(value="/用户增加",method=RequestMethod.GET)
-    public String adduser(@ModelAttribute("user") User user){
-    	return "用户增加";
-    }
-  	//增加处理
-	@RequestMapping(value="/doAddUser",method=RequestMethod.POST)
-    public String doAddUser(User user,User user2,@RequestParam String username,HttpServletRequest request){
-		user=service.selectUserByName(username);
-		logger.info(username);
-		if(user!=null) {                                       //待插入的用户已存在
-			logger.info("fail");
-			String adderror="1";
-			request.getSession().setAttribute("adderror", adderror);
-			return "用户增加";
-		}
-		else {                                                 //待插入的用户不存在
-			service.addNormalUser(user2);
-			logger.info("success");
-			String adderror="0";
-			request.getSession().setAttribute("adderror", adderror);
-            return "用户增加";
-		}
-    }
-	//用户删除
-  	@RequestMapping(value="/用户删除")
-    public String deleteuser(@ModelAttribute("deletenormaluser") User user){
-    	return "用户删除";
-    }
-  	//删除梳理
-  	@RequestMapping(value="/doDeleteUser",method=RequestMethod.POST)
-    public String doDeleteUser(@RequestParam int id,@RequestParam String director,HttpServletRequest request){
-  		User user=service.selectUserById(id);
-  		if(user!=null) {                                                       //要删除的ID号存在
-  			if(user.getDirector().equals(director)&&user.getType()==1) {       //该ID的权限为用户，且上家为当前登录的管理员
-  	  			service.deleteNormalUser(id);
-  	  		    String deleteerror="0";
-				request.getSession().setAttribute("deleteerror", deleteerror);
-				logger.info(deleteerror);
-				return "用户删除";
-  			}
-  			else {                                                              //该ID的权限不为用户，或上家不为当前登录的管理员	
-  				String deleteerror="1";
-  				request.getSession().setAttribute("deleteerror", deleteerror); 
-  				logger.info(deleteerror);
-  				return "用户删除";
-  			}
-  		}
-  		else {                                                                  //要删除的ID号不存在
-  			String deleteerror="2";
-			request.getSession().setAttribute("deleteerror", deleteerror);  
-			logger.info(deleteerror);
-  			return "用户删除";
-  		}
-    }
+	//用户管理
+	@RequestMapping(value="/znccglpt_usermanage")
+	public String usermanage(){
+		return "znccglpt_usermanage";
+	}
 
     //测试
   	@RequestMapping(value="/test")
