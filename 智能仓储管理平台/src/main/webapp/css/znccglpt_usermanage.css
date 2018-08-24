@@ -22,10 +22,47 @@
 #managebutton{
     width: 100%;
     height: 10%;
+    position: relative;
 }
+#managebutton input{
+    width: 200px;
+    height: 30px;
+}
+#managebutton button{
+    width: 100px;
+    height: 30px;
+}
+#select{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+#selectByIdOrUserName{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 200px;
+    bottom: 0;
+}
+#adduser{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 120px;
+    bottom: 0;
+}
+#deleteusers{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
 #userlist{
     width: 100%;
-    /*height: 85%;*/
     text-align: center;
     vertical-align: middle;
 }

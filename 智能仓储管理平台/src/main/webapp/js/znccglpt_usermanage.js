@@ -28,7 +28,7 @@ var insertHtml = function (count) {
     for(var i=0;i<count;i++) {
         var userinfo = userList[i];
         var strhtml = '<tr id="' + i + '" arrId="' + i + '">';
-        strhtml = strhtml + '<td style="width: 5%;"><input type="checkbox" style="width: 20px;height: 20px;"></td>';
+        strhtml = strhtml + '<td style="width: 5%;"><input type="checkbox" id="delete" style="width: 20px;height: 20px;"></td>';
         strhtml = strhtml + '<td style="width: 10%;">' + userinfo.id + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.username + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.realname + '</td>';
@@ -56,8 +56,8 @@ var insertHtml = function (count) {
                 id: id
             },
             success: function (data) {
-                console.log("success");
-                console.log(data);
+                // console.log("success");
+                // console.log(data);
                 if(data.result == 0){
                     alert("删除成功！");
                 }
@@ -73,3 +73,37 @@ var insertHtml = function (count) {
         });
     });
 };
+//批量删除
+var pId = [];
+var pid;
+$("#userlist").on("click","tr td #delete",function () {
+    var i = $(this).parent().parent().attr("arrId");
+    if($(this).is(':checked')) {
+        pId.push(userList[i].id);
+    }
+    else{
+        pId.splice($.inArray(userList[i].id,pId),1);
+    }
+});
+$("#deleteusers").bind("click", function() {
+    for(var n = 0;n < pId.length;n ++) {
+        pid = pId[n];
+        $.ajax({
+            type: "post",
+            url: "/ssm/doDelete",
+            data: {
+                id: pid
+            },
+            success: function (data) {
+                // console.log("success");
+                // console.log(data);
+            },
+            error: function (data) {
+                // console.log("error");
+                // console.log(data);
+            }
+        });
+    }
+    alert("删除成功！");
+    window.location.href = "znccglpt_usermanage?"+username+"";
+});
