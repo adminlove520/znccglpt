@@ -3,12 +3,25 @@ var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
 var type = parameterList[1];
-if(type == 0){
-	$("#LoginName").html(username+"[管理员]");
-}
-if(type == 1){
-	$("#LoginName").html(username+"[用户]");
-}
+//根据用户名获取其真实姓名
+$.ajax({
+    type: "post",
+    url: "/ssm/doSelect",
+    data: {
+        username: username,
+    },
+    success: function(data) {
+        // console.log("success");
+        // console.log(data);
+		var realname = data.user.realname;
+        if(type == 0){
+            $("#LoginName").html(username+"("+realname+")[管理员]");
+        }
+        if(type == 1){
+            $("#LoginName").html(username+"("+realname+")[用户]");
+        }
+    }
+});
 var Url = ["",
 	"inManagement",
 	"select",
