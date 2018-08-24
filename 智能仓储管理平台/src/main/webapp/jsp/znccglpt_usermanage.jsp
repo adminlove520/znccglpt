@@ -10,7 +10,7 @@
         <div id="title">用户管理</div>
         <div id="manage">
             <div id="managebutton" align="center">
-                <input id="select" placeholder="请输入ID/用户名">
+                <input id="select" type="search" placeholder="请输入ID/用户名">
                 <button id="selectByIdOrUserName">查询</button>
                 <button id="adduser">新增</button>
                 <button id="deleteusers">批量删除</button>
@@ -31,7 +31,14 @@
                     </tbody>
                 </table>
             </div>
-            <div id="page">分页</div>
+            <div id="fenye">
+                <div id='totalcount'></div>
+                <div id="previous" class="fanye">上一页</div>
+                <div id="next" class="fanye">下一页</div>
+                <div id="pageCount"></div>
+                <input id="pageNo" type="text"/>
+                <input id="Go" type="submit" value="GO"/>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="/js/znccglpt_usermanage.js"></script>

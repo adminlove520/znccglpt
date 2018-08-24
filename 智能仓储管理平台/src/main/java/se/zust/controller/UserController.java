@@ -169,6 +169,16 @@ public class UserController {
 		jsonObject.put("list",list);
 		return jsonObject;
 	}
+	//用户查询
+	@RequestMapping(value="/doSelectByIdOrUserName",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject doSelectByIdOrUserName(@RequestParam(value = "searchword",required = false)String searchword,
+											 @RequestParam(value = "username",required = false)String username){
+		JSONObject jsonObject = new JSONObject();
+		List list = service.selectByIdOrUserName(searchword,username);
+		jsonObject.put("list",list);
+		return jsonObject;
+	}
 	//用户删除
 	@RequestMapping(value="/doDelete",method=RequestMethod.POST)
 	@ResponseBody
