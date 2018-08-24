@@ -26,7 +26,7 @@ $("#head").click(function (){
 });
 var Url = ["",
     "znccglpt_userinfo?"+username+"",
-    "znccglpt_usermanage?"+username+""
+    "znccglpt_usermanage?"+username+"&&1"
 ];
 $(".list").bind("click",function(){
 	$(this).css("border-left","3px solid #7FFF00");
