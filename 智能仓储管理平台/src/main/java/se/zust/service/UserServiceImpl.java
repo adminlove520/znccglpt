@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService{
     public List<User> selectUserByDirector(String director){
     	return userDao.selectUserByDirector(director);
     }
-    public User selectUserById(int director){
-    	return userDao.selectUserById(director);
+    public User selectUserById(int id){
+    	return userDao.selectUserById(id);
     }
     public void addNormalUser(User user) {
     	userDao.addNormalUser(user);
