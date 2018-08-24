@@ -122,7 +122,7 @@ public class UserController {
 	public String userinfo(){
 		return "znccglpt_userinfo";
 	}
-	//根据用户名查询
+	//个人信息展示
 	@RequestMapping(value="/doSelect",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject doSelect(@RequestParam(value = "username",required = false)String username){
@@ -160,6 +160,31 @@ public class UserController {
 	public String usermanage(){
 		return "znccglpt_usermanage";
 	}
+	//用户管理展示
+	@RequestMapping(value="/doSelectByDirector",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject doSelectByDirector(@RequestParam(value = "username",required = false)String username){
+		JSONObject jsonObject = new JSONObject();
+		List list = service.selectUserByDirector(username);
+		jsonObject.put("list",list);
+		return jsonObject;
+	}
+	//用户删除
+	@RequestMapping(value="/doDelete",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject doDelete(@RequestParam(value = "id",required = false)int id){
+		JSONObject jsonObject = new JSONObject();
+		User user = service.selectUserById(id);
+		if(user == null){
+			jsonObject.put("result",1);
+		}
+		else{
+			service.deleteNormalUser(id);
+			jsonObject.put("result",0);
+		}
+		return jsonObject;
+	}
+
 
     //测试
   	@RequestMapping(value="/test")

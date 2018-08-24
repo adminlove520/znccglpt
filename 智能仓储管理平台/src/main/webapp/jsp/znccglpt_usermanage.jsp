@@ -9,7 +9,27 @@
     <div id="usermanage">
         <div id="title">用户管理</div>
         <div id="manage">
-
+            <div id="managebutton">
+                <button>新增</button>
+                <button>批量删除</button>
+            </div>
+            <div style="height: 85%;">
+                <table id="userlist">
+                    <tbody>
+                    <tr>
+                        <th><span style="cursor: pointer;">全选</span></th>
+                        <th>用户ID</th>
+                        <th>用户名</th>
+                        <th>真实姓名</th>
+                        <th>联系方式</th>
+                        <th>权限</th>
+                        <th>上级</th>
+                        <th>操作</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="page">分页</div>
         </div>
     </div>
     <script type="text/javascript" src="/js/znccglpt_usermanage.js"></script>
