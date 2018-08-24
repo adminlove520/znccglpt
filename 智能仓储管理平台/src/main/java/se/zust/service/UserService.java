@@ -19,7 +19,7 @@ public interface UserService {
     public void deleteNormalUser(int id); 
     
     public void updateUser(User user);
-    
-    
+
+	public List<User> selectByIdOrUserName(String searchword,String director);
 
 }

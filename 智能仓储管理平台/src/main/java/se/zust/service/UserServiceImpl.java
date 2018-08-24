@@ -35,4 +35,7 @@ public class UserServiceImpl implements UserService{
     public void updateUser(User user){
     	userDao.updateUser(user);
     }
+    public List<User> selectByIdOrUserName(String searchword,String director){
+        return userDao.selectByIdOrUserName(searchword,director);
+    }
 }
