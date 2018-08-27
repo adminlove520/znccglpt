@@ -8,6 +8,7 @@ if(type == 0){
 }
 if(type == 1){
 	$("#LoginName").html(username+"[用户]");
+	$("#2").hide();
 }
 //进入该页面自动加载个人资料页面
 window.onload=function(){
