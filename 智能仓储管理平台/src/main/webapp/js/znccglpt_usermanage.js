@@ -74,6 +74,7 @@ var insertHtml = function (start,end) {
         $("#phonumber").html("<input value='"+userinfo.phonumber+"'>");
         $("#type").text(userinfo.type);
         $("#director").text(userinfo.director);
+        $("#userdescribe").text(userinfo.userdescribe);
     });
     //删除
     $("#userlist").on("click","tr td #deleteuser",function () {
@@ -193,6 +194,7 @@ $("#save").bind("click", function() {
     var phonumber = $('#phonumber').children("input").val();
     var type = $('#type').text();
     var director = $('#director').text();
+    var userdescribe = $('#userdescribe').text();
     $.ajax({
         type: "post",
         url: "/ssm/doUpdate",
@@ -204,6 +206,7 @@ $("#save").bind("click", function() {
             phonumber: phonumber,
             type: type,
             director: director,
+            userdescribe: userdescribe
         },
         success: function (data) {
             // console.log("success");

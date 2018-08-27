@@ -61,6 +61,7 @@
             <tr>
                 <td>权&emsp;&emsp;限：<span id="type"></span></td>
                 <td>上&emsp;&emsp;级：<span id="director"></span></td>
+                <span id="userdescribe" style="display: none"></span>
             </tr>
         </table>
         <div  id="operation">
