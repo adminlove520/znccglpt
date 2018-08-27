@@ -77,31 +77,34 @@ var insertHtml = function (start,end) {
     });
     //删除
     $("#userlist").on("click","tr td #deleteuser",function () {
-        var i  = $(this).parent().parent().attr("arrId");
-        var userinfo = userList[i];
-        var id = userinfo.id;
-        $.ajax({
-            type: "post",
-            url: "/ssm/doDelete",
-            data: {
-                id: id
-            },
-            success: function (data) {
-                // console.log("success");
-                // console.log(data);
-                if(data.result == 0){
-                    alert("删除成功！");
+        var r=confirm("请确认是否删除用户？");
+        if (r==true){
+            var i  = $(this).parent().parent().attr("arrId");
+            var userinfo = userList[i];
+            var id = userinfo.id;
+            $.ajax({
+                type: "post",
+                url: "/ssm/doDelete",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    // console.log("success");
+                    // console.log(data);
+                    if(data.result == 0){
+                        alert("删除成功！");
+                    }
+                    if(data.result == 1){
+                        alert("删除失败，该用户不存在！");
+                    }
+                    window.location.href = "znccglpt_usermanage?"+username+"&&1";
+                },
+                error: function (data) {
+                    // console.log("error");
+                    // console.log(data);
                 }
-                if(data.result == 1){
-                    alert("删除失败，该用户不存在！");
-                }
-                window.location.href = "znccglpt_usermanage?"+username+"&&1";
-            },
-            error: function (data) {
-                // console.log("error");
-                // console.log(data);
-            }
-        });
+            });
+        }
     });
 };
 //查询
@@ -126,26 +129,29 @@ $("#deleteusers").bind("click", function() {
         alert("请勾选要批量删除的用户！");
     }
     else{
-        for(var n = 0;n < pId.length;n ++) {
-            pid = pId[n];
-            $.ajax({
-                type: "post",
-                url: "/ssm/doDelete",
-                data: {
-                    id: pid
-                },
-                success: function (data) {
-                    // console.log("success");
-                    // console.log(data);
-                },
-                error: function (data) {
-                    // console.log("error");
-                    // console.log(data);
-                }
-            });
+        var r=confirm("请确认是否删除用户？");
+        if (r==true){
+            for(var n = 0;n < pId.length;n ++) {
+                pid = pId[n];
+                $.ajax({
+                    type: "post",
+                    url: "/ssm/doDelete",
+                    data: {
+                        id: pid
+                    },
+                    success: function (data) {
+                        // console.log("success");
+                        // console.log(data);
+                    },
+                    error: function (data) {
+                        // console.log("error");
+                        // console.log(data);
+                    }
+                });
+            }
+            alert("删除成功！");
+            window.location.href = "znccglpt_usermanage?"+username+"&&1";
         }
-        alert("删除成功！");
-        window.location.href = "znccglpt_usermanage?"+username+"&&1";
     }
 });
 //翻页
@@ -178,12 +184,7 @@ $("#Go").bind("click", function() {
         window.location.href = "znccglpt_usermanage?"+username+"&&"+pageno;
     }
 });
-//弹窗失去焦点
-$("#detail").blur(function () {
-    // $('#detail').hide();
-    // $(".shandow").hide().css('z-index','-1');
-});
-//保存
+//保存编辑
 $("#save").bind("click", function() {
     var id = $('#id').text();
     var username = $('#username').text();
@@ -216,7 +217,7 @@ $("#save").bind("click", function() {
         }
     });
 });
-//取消
+//取消编辑
 $("#cancel").bind("click", function() {
     $('#detail').hide();
     $(".shandow").hide().css('z-index','-1');
