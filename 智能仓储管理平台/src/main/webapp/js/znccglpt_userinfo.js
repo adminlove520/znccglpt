@@ -33,6 +33,7 @@ $("#change").click(function (){
     $('#realname').attr("disabled",false);
     $('#phonumber').attr("disabled",false);
     $('#userdescribe').attr("disabled",false);
+    $('#update').attr("disabled",false);
 });
 //更新
 $("#update").click(function (){

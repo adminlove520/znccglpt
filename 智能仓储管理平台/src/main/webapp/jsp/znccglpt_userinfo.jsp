@@ -53,7 +53,7 @@
             </table>
             <div id="button">
                 <button id="change">修改</button>
-                <button id="update">保存</button>
+                <button id="update" disabled="disabled">保存</button>
             </div>
         </div>
     </div>
