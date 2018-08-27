@@ -64,7 +64,22 @@ var insertHtml = function (start,end) {
     $("#userlist").on("click","tr td #changeuserinfo",function () {
         var i  = $(this).parent().parent().attr("arrId");
         var userinfo = userList[i];
-        console.log(userinfo);
+        $('#detail').show().focus();
+        $(".shandow").show().css('z-index', '11');
+        $("#id").text(userinfo.id);
+        $("#username").text(userinfo.username);
+
+        // $("#password").text(userinfo.password);
+        // $("#realname").text(userinfo.realname);
+        // $("#phonumber").text(userinfo.phonumber);
+
+        $("#password").html("<input value='"+userinfo.password+"'>");
+        $("#realname").html("<input value='"+userinfo.realname+"'>");
+        $("#phonumber").html("<input value='"+userinfo.phonumber+"'>");
+
+
+        $("#type").text(userinfo.type);
+        $("#director").text(userinfo.director);
     });
     //删除
     $("#userlist").on("click","tr td #deleteuser",function () {
@@ -163,4 +178,8 @@ $("#Go").bind("click", function() {
     else{
         window.location.href = "znccglpt_usermanage?"+username+"&&"+pageno;
     }
+});
+$("#detail").blur(function () {
+    // $('#detail').hide();
+    // $(".shandow").hide().css('z-index','-1');
 });

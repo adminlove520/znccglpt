@@ -1,4 +1,16 @@
 /*用户管理*/
+.shandow {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.6);
+}
 #usermanage{
     width: 90%;
     height: 92%;
@@ -102,4 +114,51 @@
 #pageNo{
     width: 30px;
     text-align: center;
+}
+#detail{
+    position: fixed;
+    margin: 0;
+    top: 18%;
+    left: 24%;
+    outline: 0;
+    z-index: 999;
+    border: 1px solid #C2C2C2;
+    border-radius: 15px;
+    padding:40px 60px 60px 60px;
+    background-color: #FFFFFF;
+    display: none;
+}
+#detail table{
+    text-align: left;
+}
+#detail table tr{
+    height: 50px;
+}
+#detail table tr td{
+    width: 240px;
+}
+#detail table input{
+    width: 150px;
+}
+#operation div{
+    width: 100px;
+    height: 30px;
+    background-color: #15D6BA;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+    margin: 30px 55px 0 55px;
+}
+#save{
+    float: left;
+}
+#save:hover{
+    cursor: pointer;
+}
+#cancel{
+    float: right;
+}
+#cancel:hover{
+    cursor: pointer;
 }

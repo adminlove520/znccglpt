@@ -6,6 +6,7 @@
     <script src="/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+    <div class="shandow"></div>
     <div id="usermanage">
         <div id="title">用户管理</div>
         <div id="manage">
@@ -39,6 +40,32 @@
                 <input id="pageNo" type="text"/>
                 <input id="Go" type="submit" value="GO"/>
             </div>
+        </div>
+    </div>
+    <div id="detail" tabindex="0">
+        <table>
+            <th colspan="2" style="text-align: center;">
+                —————— <span id="detailtitle">用户信息编辑</span> ——————
+            </th>
+            <tr>
+                <td>用户&emsp;ID：<span id="id"></span></td>
+            </tr>
+            <tr>
+                <td>用&nbsp;&thinsp;户&thinsp;&nbsp;名：<span id="username"></span></td>
+                <td>账号密码：<span id="password"></span></td>
+            </tr>
+            <tr>
+                <td>真实姓名：<span id="realname"></span></td>
+                <td>联系方式：<span id="phonumber"></span></td>
+            </tr>
+            <tr>
+                <td>权&emsp;&emsp;限：<span id="type"></span></td>
+                <td>上&emsp;&emsp;级：<span id="director"></span></td>
+            </tr>
+        </table>
+        <div  id="operation">
+            <div id="save">保存</div>
+            <div id="cancel">取消</div>
         </div>
     </div>
     <script type="text/javascript" src="/js/znccglpt_usermanage.js"></script>
