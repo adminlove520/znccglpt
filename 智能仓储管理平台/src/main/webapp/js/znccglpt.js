@@ -31,16 +31,21 @@ var Url = ["",
 	"movesRecord?&"+realname,
 	"warehouseManagement?&"+realname
 ];
-var isShow = 0;		//0为隐藏，1为显示
-$("#head").click(function (){
-	if (0 == isShow) {
-		$("#set").show();
-		isShow = 1;		
-	}else if (1 == isShow) {
-		$("#set").hide();
-		isShow = 0
-	}
+$("#head").click(function (e){
+    e.stopPropagation(); //阻止冒泡 
+    $("#set").toggle();
+    if($("#set").is(":visible")){ //判断子菜单是否可见   
+        $(document).one("click",function(){ //如果可见就为documnet对象绑定个一次性的单击事件       
+            $("#set").hide();
+        });
+    }
 });
+var iframe = document.getElementById('iframe');
+iframe.onload = function() {
+    iframe.contentDocument.onclick = function () {
+        $("#set").hide();
+    }
+};
 $(".list").bind("click",function(){
 	$(this).css("border-left","3px solid #7FFF00");
 	$(this).css("background-color","#526C85");

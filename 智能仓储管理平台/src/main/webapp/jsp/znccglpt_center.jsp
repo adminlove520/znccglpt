@@ -28,7 +28,7 @@
         </ul>
     </div>
     <div id="right">
-        <iframe src="" name="iframe_a" width="100%" height="92%" frameborder="0"></iframe>
+        <iframe id="iframe" src="" name="iframe_a" width="100%" height="92%" frameborder="0"></iframe>
         <form id="form" action="" target="iframe_a" method="post"></form>
     </div>
     <script type="text/javascript" src="/js/znccglpt_center.js"></script>
