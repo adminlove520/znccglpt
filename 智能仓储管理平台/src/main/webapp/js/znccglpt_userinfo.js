@@ -17,8 +17,18 @@ $.ajax({
         $("#password").val(data.user.password);
         $("#realname").val(data.user.realname);
         $("#phonumber").val(data.user.phonumber);
-        $("#type").val(data.user.type);
-        $("#director").val(data.user.director);
+        if(data.user.type == 0){
+            $("#type").val("管理员");
+        }
+        if(data.user.type == 1){
+            $("#type").val("用户");
+        }
+        if(data.user.type == ""){
+            $("#director").val("无");
+        }
+        else{
+            $("#director").val(data.user.director);
+        }
         $("#userdescribe").val(data.user.userdescribe);
     },
     error: function (data) {
@@ -43,7 +53,16 @@ $("#update").click(function (){
     var realname = $("#realname").val();
     var phonumber = $("#phonumber").val();
     var type = $("#type").val();
+    if(type == "管理员"){
+        type = 0;
+    }
+    if(type == "用户"){
+        type = 1;
+    }
     var director = $("#director").val();
+    if(director == "无"){
+        director = "";
+    }
     var userdescribe = $("#userdescribe").val();
     $.ajax({
         type: "post",

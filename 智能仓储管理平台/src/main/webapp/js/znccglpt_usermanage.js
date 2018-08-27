@@ -59,7 +59,12 @@ var insertHtml = function (start,end) {
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.username + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.realname + '</td>';
         strhtml = strhtml + '<td style="width: 20%;">' + userinfo.phonumber + '</td>';
-        strhtml = strhtml + '<td style="width: 10%;">' + userinfo.type + '</td>';
+        if(userinfo.type == 0){
+            strhtml = strhtml + '<td style="width: 10%;">管理员</td>';
+        }
+        if(userinfo.type == 1){
+            strhtml = strhtml + '<td style="width: 10%;">用户</td>';
+        }
         strhtml = strhtml + '<td style="width: 10%;">' + userinfo.director + '</td>';
         strhtml = strhtml + '<td style="width: 15%;"><button id="changeuserinfo">编辑</button> | <button id="deleteuser">删除</button></td>';
         $("#userlist").append(strhtml);
@@ -77,7 +82,7 @@ var insertHtml = function (start,end) {
         $("#password").html("<input type='password' value='"+userinfo.password+"'>");
         $("#realname").html("<input value='"+userinfo.realname+"'>");
         $("#phonumber").html("<input value='"+userinfo.phonumber+"'>");
-        $("#type").text(userinfo.type);
+        $("#type").text("用户");
         $("#director").text(userinfo.director);
         $("#userdescribe").text(userinfo.userdescribe);
     });
@@ -204,7 +209,7 @@ $("#adduser").bind("click", function() {
     $("#c").html("确认密码：<span id='password2'><input type='password'></span>");
     $("#realname").html("<input type='realname'>");
     $("#phonumber").html("<input type='phonumber'>");
-    $("#type").text("1");
+    $("#type").text("用户");
     $("#director").text(UserName);
 });
 //保存编辑
@@ -261,7 +266,7 @@ var addUser = function (username,password,realname,phonumber,type,director) {
             password: password,
             realname: realname,
             phonumber: phonumber,
-            type: type,
+            type: 1,
             director: director
         },
         success: function (data) {
@@ -293,7 +298,7 @@ var updateUser = function (id,username,password,realname,phonumber,type,director
             password: password,
             realname: realname,
             phonumber: phonumber,
-            type: type,
+            type: 1,
             director: director,
             userdescribe: userdescribe
         },
