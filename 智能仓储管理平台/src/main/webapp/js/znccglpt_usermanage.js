@@ -4,14 +4,17 @@ var start; //从第几条数据开始显示
 var end; //到第几条数据结束显示
 var pageSize = 10; //每页显示数据数目
 var pageCount; //总页数
+var infoType; //0：新增    1：编辑
 var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
 var searchword = decodeURIComponent(parameterList[1]);
 var pageNo = parameterList[2];
 var UserName = username; //UserName为当前登录者的用户名，以避免和下面获取到的用户列表用户名冲突
+
 $("#select").val(searchword);
 $("#pageNo").val(pageNo);
+
 //进入页面显示个人资料
 $.ajax({
     type: "post",
@@ -63,6 +66,8 @@ var insertHtml = function (start,end) {
     }
     //编辑
     $("#userlist").on("click","tr td #changeuserinfo",function () {
+        infoType = 1;
+        $("#detailtitle").text("用户信息编辑");
         var i  = $(this).parent().parent().attr("arrId");
         var userinfo = userList[i];
         $('#detail').show();
@@ -98,7 +103,7 @@ var insertHtml = function (start,end) {
                     if(data.result == 1){
                         alert("删除失败，该用户不存在！");
                     }
-                    window.location.href = "znccglpt_usermanage?"+username+"&&1";
+                    window.location.href = "znccglpt_usermanage?"+UserName+"&&1";
                 },
                 error: function (data) {
                     // console.log("error");
@@ -111,7 +116,7 @@ var insertHtml = function (start,end) {
 //查询
 $("#selectByIdOrUserName").bind("click", function() {
     var searchword = $("#select").val();
-    window.location.href = "znccglpt_usermanage?"+username+"&"+searchword+"&1";
+    window.location.href = "znccglpt_usermanage?"+UserName+"&"+searchword+"&1";
 });
 //批量删除
 var pId = [];
@@ -151,7 +156,7 @@ $("#deleteusers").bind("click", function() {
                 });
             }
             alert("删除成功！");
-            window.location.href = "znccglpt_usermanage?"+username+"&&1";
+            window.location.href = "znccglpt_usermanage?"+UserName+"&&1";
         }
     }
 });
@@ -162,7 +167,7 @@ $("#previous").bind("click", function() {
         alert("没有上一页！");
     }
     else{
-        window.location.href = "znccglpt_usermanage?"+username+"&&"+pageno;
+        window.location.href = "znccglpt_usermanage?"+UserName+"&&"+pageno;
     }
 });
 $("#next").bind("click", function() {
@@ -171,7 +176,7 @@ $("#next").bind("click", function() {
         alert("没有下一页！");
     }
     else{
-        window.location.href = "znccglpt_usermanage?"+username+"&&"+pageno;
+        window.location.href = "znccglpt_usermanage?"+UserName+"&&"+pageno;
     }
 });
 //跳转
@@ -182,43 +187,99 @@ $("#Go").bind("click", function() {
         alert("页码超出范围！");
     }
     else{
-        window.location.href = "znccglpt_usermanage?"+username+"&&"+pageno;
+        window.location.href = "znccglpt_usermanage?"+UserName+"&&"+pageno;
     }
+});
+//新增
+$("#adduser").bind("click", function() {
+    infoType = 0;
+    $('#detail').show();
+    $(".shandow").show().css('z-index', '11');
+    $("#detailtitle").text("用户新增");
+    // $("#id").text("系统自动生成");
+    // $("#username").html("<input type='username'>");
+    // $("#password").html("<input type='password'>");
+    $("#a").html("用&nbsp;&thinsp;户&thinsp;&nbsp;名：<span id='username'><input type='username'></span>");
+    $("#b").html("账号密码：<span id='password'><input type='password'></span>");
+    $("#c").html("确认密码：<span id='password2'><input type='password'></span>");
+    $("#realname").html("<input type='realname'>");
+    $("#phonumber").html("<input type='phonumber'>");
+    $("#type").text("1");
+    $("#director").text(UserName);
 });
 //保存编辑
 $("#save").bind("click", function() {
-    var id = $('#id').text();
-    var username = $('#username').text();
-    var password = $('#password').children("input").val();
-    var realname = $('#realname').children("input").val();
-    var phonumber = $('#phonumber').children("input").val();
-    var type = $('#type').text();
-    var director = $('#director').text();
-    var userdescribe = $('#userdescribe').text();
-    $.ajax({
-        type: "post",
-        url: "/ssm/doUpdate",
-        data: {
-            id:id,
-            username: username,
-            password: password,
-            realname: realname,
-            phonumber: phonumber,
-            type: type,
-            director: director,
-            userdescribe: userdescribe
-        },
-        success: function (data) {
-            // console.log("success");
-            // console.log(data);
-            alert("修改成功！");
-            window.location.href = "znccglpt_usermanage?"+UserName+"&"+searchword+"&"+pageNo;
-        },
-        error: function (data) {
-            // console.log("error");
-            // console.log(data);
-        }
-    });
+    if(infoType == 0){
+        var username = $('#username').children("input").val();
+        var password = $('#password').children("input").val();
+        var realname = $('#realname').children("input").val();
+        var phonumber = $('#phonumber').children("input").val();
+        var type = $('#type').text();
+        var director = $('#director').text();
+        $.ajax({
+            type: "post",
+            url: "/ssm/doAddNormalUser",
+            data: {
+                username: username,
+                password: password,
+                realname: realname,
+                phonumber: phonumber,
+                type: type,
+                director: director,
+            },
+            success: function (data) {
+                // console.log("success");
+                // console.log(data);
+                switch(data.result) {
+                    case 1:
+                        alert("该用户已存在!")
+                        break;
+                    case 0:
+                        alert("新增成功!")
+                        window.location.href = "znccglpt_usermanage?"+UserName+"&&1";
+                        break;
+                }
+            },
+            error: function (data) {
+                // console.log("error");
+                // console.log(data);
+            }
+        });
+    }
+    else if(infoType == 1){
+        var id = $('#id').text();
+        var username = $('#username').text();
+        var password = $('#password').children("input").val();
+        var realname = $('#realname').children("input").val();
+        var phonumber = $('#phonumber').children("input").val();
+        var type = $('#type').text();
+        var director = $('#director').text();
+        var userdescribe = $('#userdescribe').text();
+        $.ajax({
+            type: "post",
+            url: "/ssm/doUpdate",
+            data: {
+                id:id,
+                username: username,
+                password: password,
+                realname: realname,
+                phonumber: phonumber,
+                type: type,
+                director: director,
+                userdescribe: userdescribe
+            },
+            success: function (data) {
+                // console.log("success");
+                // console.log(data);
+                alert("修改成功！");
+                window.location.href = "znccglpt_usermanage?"+UserName+"&"+searchword+"&"+pageNo;
+            },
+            error: function (data) {
+                // console.log("error");
+                // console.log(data);
+            }
+        });
+    }
 });
 //取消编辑
 $("#cancel").bind("click", function() {

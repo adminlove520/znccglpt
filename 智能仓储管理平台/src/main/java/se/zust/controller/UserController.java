@@ -179,6 +179,33 @@ public class UserController {
 		jsonObject.put("list",list);
 		return jsonObject;
 	}
+	//用户新增
+	@RequestMapping(value="/doAddNormalUser",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject doAddNormalUser(@RequestParam(value = "username",required = false)String username,
+									  @RequestParam(value = "password",required = false)String password,
+									  @RequestParam(value = "realname",required = false)String realname,
+									  @RequestParam(value = "phonumber",required = false)String phonumber,
+									  @RequestParam(value = "type",required = false)int type,
+									  @RequestParam(value = "director",required = false)String director){
+		JSONObject jsonObject = new JSONObject();
+		User user1 = service.selectUserByName(username);
+		if(user1 != null) {
+			jsonObject.put("result", 1); //该用户已注册
+		}
+		else{
+			User user2 = new User() ;
+			user2.setUsername(username);
+			user2.setPassword(password);
+			user2.setRealname(realname);
+			user2.setPhonumber(phonumber);
+			user2.setType(type);
+			user2.setDirector(director);
+			service.addUser(user2);
+			jsonObject.put("result", 0); //注册成功
+		}
+		return jsonObject;
+	}
 	//用户删除
 	@RequestMapping(value="/doDelete",method=RequestMethod.POST)
 	@ResponseBody
