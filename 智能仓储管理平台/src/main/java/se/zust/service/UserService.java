@@ -13,8 +13,6 @@ public interface UserService {
 	public List<User> selectUserByDirector(String director);
 
 	public User selectUserById(int id);
-	
-	public void addNormalUser(User user);
 	   
     public void deleteNormalUser(int id); 
     

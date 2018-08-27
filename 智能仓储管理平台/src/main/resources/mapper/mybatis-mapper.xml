@@ -45,12 +45,6 @@
         where id=#{id} 
     </update>
     
-    <!-- 普通用户添加 -->
-    <insert id="addNormalUser" keyProperty="id" parameterType="se.zust.entity.User">
-        INSERT INTO user(username,password,realname,phonumber,type,director) VALUES 
-        (#{username},#{password},#{realname},#{phonumber},#{type},#{director})
-    </insert>
-    
     <!-- 普通用户删除 -->
     <insert id="deleteNormalUser" parameterType="se.zust.entity.User">
         DELETE FROM user WHERE id = #{id} 

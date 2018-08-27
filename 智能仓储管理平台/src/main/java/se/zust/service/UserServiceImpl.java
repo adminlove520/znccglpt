@@ -26,9 +26,6 @@ public class UserServiceImpl implements UserService{
     public User selectUserById(int id){
     	return userDao.selectUserById(id);
     }
-    public void addNormalUser(User user) {
-    	userDao.addNormalUser(user);
-    }
     public void deleteNormalUser(int id) {
     	userDao.deleteNormalUser(id);
     }
