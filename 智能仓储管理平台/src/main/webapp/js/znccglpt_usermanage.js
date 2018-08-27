@@ -97,12 +97,12 @@ var insertHtml = function (start,end) {
                 success: function (data) {
                     // console.log("success");
                     // console.log(data);
-                    if(data.result == 0){
-                        alert("删除成功！");
-                    }
-                    if(data.result == 1){
-                        alert("删除失败，该用户不存在！");
-                    }
+                    // if(data.result == 0){
+                    //     alert("删除成功！");
+                    // }
+                    // if(data.result == 1){
+                    //     alert("删除失败，该用户不存在！");
+                    // }
                     window.location.href = "znccglpt_usermanage?"+UserName+"&&1";
                 },
                 error: function (data) {
@@ -155,7 +155,7 @@ $("#deleteusers").bind("click", function() {
                     }
                 });
             }
-            alert("删除成功！");
+            // alert("删除成功！");
             window.location.href = "znccglpt_usermanage?"+UserName+"&&1";
         }
     }
@@ -212,39 +212,23 @@ $("#save").bind("click", function() {
     if(infoType == 0){
         var username = $('#username').children("input").val();
         var password = $('#password').children("input").val();
+        var password2 = $('#password2').children("input").val();
         var realname = $('#realname').children("input").val();
         var phonumber = $('#phonumber').children("input").val();
         var type = $('#type').text();
         var director = $('#director').text();
-        $.ajax({
-            type: "post",
-            url: "/ssm/doAddNormalUser",
-            data: {
-                username: username,
-                password: password,
-                realname: realname,
-                phonumber: phonumber,
-                type: type,
-                director: director,
-            },
-            success: function (data) {
-                // console.log("success");
-                // console.log(data);
-                switch(data.result) {
-                    case 1:
-                        alert("该用户已存在!")
-                        break;
-                    case 0:
-                        alert("新增成功!")
-                        window.location.href = "znccglpt_usermanage?"+UserName+"&&1";
-                        break;
-                }
-            },
-            error: function (data) {
-                // console.log("error");
-                // console.log(data);
-            }
-        });
+        if((username == "")||(password == "")||(password2 == "")||(realname == "")||(phonumber == "")){
+            alert("请输入新增用户信息！");
+        }
+        else if(password != password2){
+            alert("密码不一致，请重新输入！");
+        }
+        else if(phonumber.length != 11){
+            alert("请输入正确的手机号码！");
+        }
+        else{
+            addUser(username,password,realname,phonumber,type,director);
+        }
     }
     else if(infoType == 1){
         var id = $('#id').text();
@@ -255,30 +239,12 @@ $("#save").bind("click", function() {
         var type = $('#type').text();
         var director = $('#director').text();
         var userdescribe = $('#userdescribe').text();
-        $.ajax({
-            type: "post",
-            url: "/ssm/doUpdate",
-            data: {
-                id:id,
-                username: username,
-                password: password,
-                realname: realname,
-                phonumber: phonumber,
-                type: type,
-                director: director,
-                userdescribe: userdescribe
-            },
-            success: function (data) {
-                // console.log("success");
-                // console.log(data);
-                alert("修改成功！");
-                window.location.href = "znccglpt_usermanage?"+UserName+"&"+searchword+"&"+pageNo;
-            },
-            error: function (data) {
-                // console.log("error");
-                // console.log(data);
-            }
-        });
+        if(phonumber.length != 11){
+            alert("请输入正确的手机号码！");
+        }
+        else{
+            updateUser(id,username,password,realname,phonumber,type,director,userdescribe);
+        }
     }
 });
 //取消编辑
@@ -286,3 +252,60 @@ $("#cancel").bind("click", function() {
     $('#detail').hide();
     $(".shandow").hide().css('z-index','-1');
 });
+var addUser = function (username,password,realname,phonumber,type,director) {
+    $.ajax({
+        type: "post",
+        url: "/ssm/doAddNormalUser",
+        data: {
+            username: username,
+            password: password,
+            realname: realname,
+            phonumber: phonumber,
+            type: type,
+            director: director
+        },
+        success: function (data) {
+            // console.log("success");
+            // console.log(data);
+            switch(data.result) {
+                case 1:
+                    alert("该用户已存在!");
+                    break;
+                case 0:
+                    alert("新增成功!");
+                    window.location.href = "znccglpt_usermanage?"+UserName+"&&1";
+                    break;
+            }
+        },
+        error: function (data) {
+            // console.log("error");
+            // console.log(data);
+        }
+    });
+};
+var updateUser = function (id,username,password,realname,phonumber,type,director,userdescribe) {
+    $.ajax({
+        type: "post",
+        url: "/ssm/doUpdate",
+        data: {
+            id: id,
+            username: username,
+            password: password,
+            realname: realname,
+            phonumber: phonumber,
+            type: type,
+            director: director,
+            userdescribe: userdescribe
+        },
+        success: function (data) {
+            // console.log("success");
+            // console.log(data);
+            alert("修改成功！");
+            window.location.href = "znccglpt_usermanage?" + UserName + "&" + searchword + "&" + pageNo;
+        },
+        error: function (data) {
+            // console.log("error");
+            // console.log(data);
+        }
+    });
+};
