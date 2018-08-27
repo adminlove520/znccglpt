@@ -3,6 +3,7 @@ var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
 var type = parameterList[1];
+var realname;
 //根据用户名获取其真实姓名
 $.ajax({
     type: "post",
@@ -13,7 +14,7 @@ $.ajax({
     success: function(data) {
         // console.log("success");
         // console.log(data);
-		var realname = data.user.realname;
+        realname = data.user.realname;
         if(type == 0){
             $("#LoginName").html(username+"("+realname+")[管理员]");
         }
@@ -23,12 +24,12 @@ $.ajax({
     }
 });
 var Url = ["",
-	"inManagement",
-	"select",
-	"check",
-	"outManagement",
-	"movesRecord",
-	"warehouseManagement"
+	"inManagement?&"+realname,
+	"select?&"+realname,
+	"check?&"+realname,
+	"outManagement?&"+realname,
+	"movesRecord?&"+realname,
+	"warehouseManagement?&"+realname
 ];
 var isShow = 0;		//0为隐藏，1为显示
 $("#head").click(function (){
