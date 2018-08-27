@@ -107,11 +107,16 @@ public class UserController {
 		}
 		return jsonObject;
 	}
-	//系统主页
+	//系统框架
 	@RequestMapping(value="/znccglpt")
     public String znccglpt(){
     	return "znccglpt";
     }
+	//系统主页
+	@RequestMapping(value="/znccglpt_index")
+	public String znccglpt_index(){
+		return "znccglpt_index";
+	}
   	//个人中心
   	@RequestMapping(value="/znccglpt_center")
     public String usercenter(){
