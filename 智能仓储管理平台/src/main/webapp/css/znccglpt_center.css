@@ -35,8 +35,6 @@ a{
 	float: right;
 	cursor: pointer;
 	margin: 10px 15px 10px 10px;
-	background-size: 100% 100%;
-	background-image: url("/picture/system/1.jpeg");
 }
 #LoginName{
 	float: right;

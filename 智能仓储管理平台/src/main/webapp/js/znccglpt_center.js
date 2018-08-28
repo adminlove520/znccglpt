@@ -3,13 +3,28 @@ var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
 var type = parameterList[1];
-if(type == 0){
-	$("#LoginName").html(username+"[管理员]");
-}
-if(type == 1){
-	$("#LoginName").html(username+"[用户]");
-	$("#2").hide();
-}
+$.ajax({
+    type: "post",
+    url: "/ssm/doSelect",
+    data: {
+        username: username,
+    },
+    success: function(data) {
+        // console.log("success");
+        // console.log(data);
+        if(type == 0){
+            $("#LoginName").html(username+"[管理员]");
+        }
+        if(type == 1){
+            $("#LoginName").html(username+"[用户]");
+            $("#2").hide();
+        }
+        if(data.user.imgurl != ""){
+            console.log(data.user.imgurl);
+            $("#head").attr("src",data.user.imgurl);
+        }
+    }
+});
 //进入该页面自动加载个人资料页面
 window.onload=function(){
     $("#1").trigger("click");

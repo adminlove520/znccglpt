@@ -21,6 +21,10 @@ $.ajax({
         if(type == 1){
             $("#LoginName").html(username+"("+realname+")[用户]");
         }
+        if(data.user.imgurl != ""){
+            console.log(data.user.imgurl);
+            $("#head").attr("src",data.user.imgurl);
+        }
     }
 });
 var Url = ["",
