@@ -173,15 +173,15 @@ public class UserController {
 			if(!file.getParentFile().exists()) { //判断父目录路径是否存在
 				try{
 					file.getParentFile().mkdirs(); //不存在则创建父目录
-					if(file.exists()){
-						file.delete();
-					}
 					file.createNewFile();
 				}catch (IOException e){
 					e.printStackTrace();
 				}
 			}
 			else{
+				if(file.exists()){ //判断子文件是否存在，已存在则删除再创建
+					file.delete();
+				}
 				file.createNewFile();
 			}
 
