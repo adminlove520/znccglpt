@@ -9,6 +9,7 @@ public class User {
     private int type;
     private String director;
     private String userdescribe;
+    private String imgurl;
     
     public int getId() {
 		return id;
@@ -57,5 +58,11 @@ public class User {
 	}
 	public void setUserdescribe(String userdescribe) {
 		this.userdescribe = userdescribe;
+	}
+	public String getImgurl() {
+		return imgurl;
+	}
+	public void setImgurl(String imgurl) {
+		this.imgurl = imgurl;
 	}
 }
