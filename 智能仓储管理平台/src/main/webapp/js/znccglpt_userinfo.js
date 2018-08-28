@@ -113,7 +113,7 @@ $("#update").click(function (obj){
             // console.log("success");
             // console.log(data);
             alert("更新成功！")
-            window.location.href = "znccglpt_userinfo?"+username+"";
+            parent.location.reload();
         },
         error: function (data) {
             // console.log("error");
