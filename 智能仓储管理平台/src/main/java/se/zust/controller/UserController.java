@@ -2,6 +2,7 @@ package se.zust.controller;
 
 import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import se.zust.entity.User;
 import se.zust.service.UserService;
 
@@ -10,9 +11,12 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/ssm")
@@ -146,7 +150,9 @@ public class UserController {
 							   @RequestParam(value = "phonumber",required = false)String phonumber,
 							   @RequestParam(value = "type",required = false)int type,
 							   @RequestParam(value = "director",required = false)String director,
-							   @RequestParam(value = "userdescribe",required = false)String userdescribe){
+							   @RequestParam(value = "userdescribe",required = false)String userdescribe,
+							   @RequestParam(value = "imgurl",required = false)String imgurl,
+							   @RequestParam(value = "imgname",required = false)String imgname) throws IOException {
 		JSONObject jsonObject = new JSONObject();
 		User user = new User() ;
 		user.setId(id);
@@ -157,6 +163,46 @@ public class UserController {
 		user.setType(type);
 		user.setDirector(director);
 		user.setUserdescribe(userdescribe);
+		//如果用户有上传头像
+		if(imgname != ""){
+			String suffix = imgname.substring(imgname.lastIndexOf(".") + 1);
+			//头像存放路径	D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\src\\main\\webapp\\picture\\userphoto\\用户ID_用户名.文件后缀
+			String strName = "\\picture\\userphoto\\"+id+"_"+username+"."+ suffix; //src链接地址
+			String strPath = "D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\src\\main\\webapp"+strName; //完整路径
+			File file = new File(strPath);
+			if(!file.getParentFile().exists()) { //判断父目录路径是否存在
+				try{
+					file.getParentFile().mkdirs(); //不存在则创建父目录
+					if(file.exists()){
+						file.delete();
+					}
+					file.createNewFile();
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+			}
+			else{
+				file.createNewFile();
+			}
+
+//			FileInputStream fi = new FileInputStream("C:\\Users\\ucmed\\Desktop\\d500402762d0f703d99bf96b03fa513d2697c56b.gif");
+			FileInputStream fi = new FileInputStream("C:\\Users\\ucmed\\Desktop\\图片\\"+imgname);
+			FileOutputStream fo = new FileOutputStream(strPath);
+			byte[] by = new byte[1024];
+			int len = 0;
+			while((len = fi.read(by)) != -1){
+				fo.write(by,0,len);
+			}
+			fi.close();
+			fo.close();
+
+			jsonObject.put("来源",imgurl);
+			jsonObject.put("目标",strPath);
+
+
+
+			user.setImgurl(strName);
+		}
 		service.updateUser(user);
     	return jsonObject;
     }

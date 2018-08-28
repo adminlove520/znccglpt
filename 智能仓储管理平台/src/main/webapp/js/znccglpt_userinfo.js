@@ -53,7 +53,6 @@ $("#change").click(function (){
     $('#uploadfile').attr("disabled",false);
 });
 //头像上传
-var imgURL;
 $("#userphoto").click(function () {
     $("#uploadfile").click();
     $("#uploadfile").on("change",function() {
@@ -67,7 +66,7 @@ $("#userphoto").click(function () {
             }
             var URL = window.URL || window.webkitURL;
             // 通过 file 生成目标 url
-            imgURL = URL.createObjectURL(file);
+            var imgURL = URL.createObjectURL(file);
             //用attr将img的src属性改成获得的url
             $("#userphoto").attr("src", imgURL);
         }
@@ -82,8 +81,9 @@ $("#update").click(function (obj){
     var phonumber = $("#phonumber").val();
     var type = $("#type").val();
     var imgurl = $("#uploadfile").val();
+    var imgname = imgurl.substring(imgurl.lastIndexOf("\\") + 1);
     console.log(imgurl);
-    console.log(imgURL);
+    console.log(imgname);
     if(type == "管理员"){
         type = 0;
     }
@@ -108,11 +108,12 @@ $("#update").click(function (obj){
             director: director,
             userdescribe: userdescribe,
             imgurl: imgurl, //虚假路径
+            imgname: imgname
         },
         success: function (data) {
             // console.log("success");
             // console.log(data);
-            alert("更新成功！")
+            alert("更新成功！");
             parent.location.reload();
         },
         error: function (data) {
