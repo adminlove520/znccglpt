@@ -14,7 +14,7 @@
                    <td rowspan="3">头像：</td>
                    <td rowspan="3" style="position: relative">
                        <img src="/picture/system/1.jpeg" id="userphoto">
-                       <input type="file" id="uploadfile" style="display:none;" disabled="disabled">
+                       <input type="file" id="file" style="display:none;" disabled="disabled">
                        <div id="userphotoinfo">
                            只能上传小于2M的jpg/png格式图片
                        </div>

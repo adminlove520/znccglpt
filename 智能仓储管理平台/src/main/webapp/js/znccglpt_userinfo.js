@@ -33,7 +33,6 @@ $.ajax({
         }
         $("#userdescribe").val(data.user.userdescribe);
         if(data.user.imgurl != ""){
-            console.log(data.user.imgurl);
             $("#userphoto").attr("src",data.user.imgurl);
         }
     },
@@ -50,12 +49,12 @@ $("#change").click(function (){
     $('#phonumber').attr("disabled",false);
     $('#userdescribe').attr("disabled",false);
     $('#update').attr("disabled",false);
-    $('#uploadfile').attr("disabled",false);
+    $('#file').attr("disabled",false);
 });
 //头像上传
 $("#userphoto").click(function () {
-    $("#uploadfile").click();
-    $("#uploadfile").on("change",function() {
+    $("#file").click();
+    $("#file").on("change",function() {
         var files = event.target.files, file;
         if (files && files.length > 0) {
             // 获取目前上传的文件
@@ -73,14 +72,14 @@ $("#userphoto").click(function () {
     });
 });
 //更新
-$("#update").click(function (obj){
+$("#update").click(function (){
     var id = $("#id").val();
     var username = $("#username").val();
     var password = $("#password").val();
     var realname = $("#realname").val();
     var phonumber = $("#phonumber").val();
     var type = $("#type").val();
-    var imgurl = $("#uploadfile").val();
+    var imgurl = $("#file").val();
     var imgname = imgurl.substring(imgurl.lastIndexOf("\\") + 1);
     console.log(imgurl);
     console.log(imgname);
