@@ -20,6 +20,8 @@ public interface UserDao {
 
     public void updateUser(User user);  //用户信息修改
 
+    public void updateUserPhoto(@Param(value = "id") int id,@Param(value = "imgurl") String imgurl);  //用户头像修改
+
     public List<User> selectByIdOrUserName(@Param(value = "searchword") String searchword,@Param(value = "director") String director);//用户信息修改
 
 }

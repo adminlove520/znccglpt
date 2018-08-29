@@ -41,8 +41,14 @@
     <!-- 个人信息修改 -->
     <update id="updateUser" keyProperty="id" parameterType="se.zust.entity.User">
         update user set username=#{username},password=#{password},realname=#{realname},
-        phonumber=#{phonumber},type=#{type},director=#{director},userdescribe=#{userdescribe},imgurl=#{imgurl}
+        phonumber=#{phonumber},type=#{type},director=#{director},userdescribe=#{userdescribe}
         where id=#{id} 
+    </update>
+
+    <!-- 头像修改 -->
+    <update id="updateUserPhoto" keyProperty="id" parameterType="se.zust.entity.User">
+        update user set imgurl=#{imgurl}
+        where id=#{id}
     </update>
     
     <!-- 普通用户删除 -->

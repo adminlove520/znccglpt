@@ -18,6 +18,8 @@ public interface UserService {
     
     public void updateUser(User user);
 
+	public void updateUserPhoto(int id,String imgurl);
+
 	public List<User> selectByIdOrUserName(String searchword,String director);
 
 }
