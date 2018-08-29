@@ -2,17 +2,17 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <HTML>
 <head>
-    <%--测试--%>
 	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/test.js"></script>
+
 </head>
 <body>
-	<from>
-		用户名：<input type="text" id="username"><br>
-		密码：<input type="text" id="password"><br>
-		真实姓名：<input type="text" id="realname"><br>
-		联系电话：<input type="text" id="phonumber"><br>
-		<input type="submit" id="register" value="提交">
-	</from>
-	<script type="text/javascript" src="/js/test.js"></script>
+<form method="post" enctype="multipart/form-data" id="upload">
+    <input type="file" name="file" id="file">
+    <input type="text" id="id" name="id">
+    <p>
+</form>
+<input type="button" value="上传" class="addbtn"></p>
+<script src="/js/test.js"></script>
 </body>
 </HTML>

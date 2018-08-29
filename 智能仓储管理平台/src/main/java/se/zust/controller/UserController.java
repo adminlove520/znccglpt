@@ -10,13 +10,15 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import java.io.File;
+import java.io.IOException;
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/ssm")
@@ -185,7 +187,6 @@ public class UserController {
 				file.createNewFile();
 			}
 
-//			FileInputStream fi = new FileInputStream("C:\\Users\\ucmed\\Desktop\\d500402762d0f703d99bf96b03fa513d2697c56b.gif");
 			FileInputStream fi = new FileInputStream("C:\\Users\\ucmed\\Desktop\\图片\\"+imgname);
 			FileOutputStream fo = new FileOutputStream(strPath);
 			byte[] by = new byte[1024];
@@ -195,13 +196,11 @@ public class UserController {
 			}
 			fi.close();
 			fo.close();
+			service.updateUserPhoto(id,strName);
 
 			jsonObject.put("来源",imgurl);
 			jsonObject.put("目标",strPath);
 
-
-
-			user.setImgurl(strName);
 		}
 		service.updateUser(user);
     	return jsonObject;
@@ -279,5 +278,44 @@ public class UserController {
     public String test(){
     	return "test";
     }
+
+	private static final String UPLOAD_DIRECTORY = "upload";
+
+	@RequestMapping(value="/testUpload",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject testUpload(
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			String id,
+								 HttpServletRequest request, HttpServletResponse response){
+		JSONObject jsonObject = new JSONObject();
+
+		String filePath = new String();
+		//父文件夹路径
+		String uploadPath = request.getSession().getServletContext().getRealPath("./") + UPLOAD_DIRECTORY;
+
+		// 如果目录不存在则创建
+		File uploadDir = new File(uploadPath);
+		if (!uploadDir.exists()) {
+			uploadDir.mkdir();
+		}
+		//判断文件是否为空
+		if (!file.isEmpty()) {
+			try {
+				//文件的完整保存路径
+				filePath = request.getSession().getServletContext().getRealPath("/") + UPLOAD_DIRECTORY + File.separator + file.getOriginalFilename();
+
+				//转存文件
+				file.transferTo(new File(filePath));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+
+		jsonObject.put("uploadPath",uploadPath);
+		jsonObject.put("filePath",filePath);
+		jsonObject.put("id",id);
+  		return jsonObject;
+	}
 
 }
