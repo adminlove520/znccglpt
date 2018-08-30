@@ -19,20 +19,9 @@ $.ajax({
         $("#password").val(data.user.password);
         $("#realname").val(data.user.realname);
         $("#phonumber").val(data.user.phonumber);
-        // if(data.user.type == 0){
-        //     $("# if(data.user.type == 1){type").val("管理员");
-        //         // }
-        //         //
-        //     $("#type").val("用户");
-        // }
-        // if(data.user.director == ""){
-        //     $("#director").val("无");
-        // }
         $("#type").val(data.user.type);
         $("#director").val(data.user.director);
-        // else{
-            $("#director").val(data.user.director);
-        // }
+        $("#director").val(data.user.director);
         $("#userdescribe").val(data.user.userdescribe);
         if(data.user.imgurl != ""){
             $("#userphoto").attr("src",data.user.imgurl);
@@ -75,30 +64,6 @@ $("#userphoto").click(function () {
 });
 //更新
 $("#update").click(function (){
-    var id = $("#id").val();
-    var username = $("#username").val();
-    var password = $("#password").val();
-    var realname = $("#realname").val();
-    var phonumber = $("#phonumber").val();
-    var type = $("#type").val();
-    var imgurl = $("#file").val();
-    var imgname = imgurl.substring(imgurl.lastIndexOf("\\") + 1);
-    console.log(imgurl);
-    console.log(imgname);
-    // if(type == "管理员"){
-    //     type = 0;
-    // }
-    // if(type == "用户"){
-    //     type = 1;
-    // }
-    var director = $("#director").val();
-    // if(director == "无"){
-    //     director = "";
-    // }
-    var userdescribe = $("#userdescribe").val();
-
-
-
     var formData = new FormData($("#upload")[0]);
     $.ajax({
         type: "post",
@@ -110,7 +75,7 @@ $("#update").click(function (){
         processData: false,
         success: function (data) {
             // console.log("success");
-            console.log(data);
+            // console.log(data);
             alert("更新成功！");
             parent.location.reload();
         },

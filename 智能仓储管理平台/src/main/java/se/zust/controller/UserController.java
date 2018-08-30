@@ -193,13 +193,11 @@ public class UserController {
 			}
 		}
 
-		jsonObject.put("imgName",imgName);
-		jsonObject.put("suffix",suffix);
-		jsonObject.put("imgurl",imgurl);
-		jsonObject.put("parentPath",parentPath);
-		jsonObject.put("filePath",filePath);
 		service.updateUser(user);
 		jsonObject.put("user",user);
+		jsonObject.put("imgurl",imgurl); //数据库保存路径
+		jsonObject.put("parentPath",parentPath); //父文件夹路径
+		jsonObject.put("filePath",filePath); //本地完整保存路径
 		return jsonObject;
 	}
   	//个人信息更新(旧)
