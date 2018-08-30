@@ -59,12 +59,7 @@ var insertHtml = function (start,end) {
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.username + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.realname + '</td>';
         strhtml = strhtml + '<td style="width: 20%;">' + userinfo.phonumber + '</td>';
-        if(userinfo.type == 0){
-            strhtml = strhtml + '<td style="width: 10%;">管理员</td>';
-        }
-        if(userinfo.type == 1){
-            strhtml = strhtml + '<td style="width: 10%;">用户</td>';
-        }
+        strhtml = strhtml + '<td style="width: 10%;">' + userinfo.type + '</td>';
         strhtml = strhtml + '<td style="width: 10%;">' + userinfo.director + '</td>';
         strhtml = strhtml + '<td style="width: 15%;"><button id="changeuserinfo">编辑</button> | <button id="deleteuser">删除</button></td>';
         $("#userlist").append(strhtml);
@@ -73,6 +68,9 @@ var insertHtml = function (start,end) {
     $("#userlist").on("click","tr td #changeuserinfo",function () {
         infoType = 1;
         $("#detailtitle").text("用户信息编辑");
+        $("#a").html("用户&emsp;ID：<span id='id'></span>");
+        $("#b").html("用&nbsp;&thinsp;户&thinsp;&nbsp;名：<span id='username'></span>");
+        $("#c").html("账号密码：<span id='password'></span>");
         var i  = $(this).parent().parent().attr("arrId");
         var userinfo = userList[i];
         $('#detail').show();
@@ -82,7 +80,7 @@ var insertHtml = function (start,end) {
         $("#password").html("<input type='password' value='"+userinfo.password+"'>");
         $("#realname").html("<input value='"+userinfo.realname+"'>");
         $("#phonumber").html("<input value='"+userinfo.phonumber+"'>");
-        $("#type").text("用户");
+        $("#type").text(1);
         $("#director").text(userinfo.director);
         $("#userdescribe").text(userinfo.userdescribe);
     });
@@ -209,7 +207,7 @@ $("#adduser").bind("click", function() {
     $("#c").html("确认密码：<span id='password2'><input type='password'></span>");
     $("#realname").html("<input type='realname'>");
     $("#phonumber").html("<input type='phonumber'>");
-    $("#type").text("用户");
+    $("#type").text(1);
     $("#director").text(UserName);
 });
 //保存编辑
