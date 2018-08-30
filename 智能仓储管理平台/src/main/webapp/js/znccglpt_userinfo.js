@@ -35,12 +35,17 @@ $.ajax({
 //修改
 $("#change").click(function (){
     //可修改内容仅限密码，真实姓名，联系方式，个人简介
-    $('#password').attr("disabled",false);
-    $('#realname').attr("disabled",false);
-    $('#phonumber').attr("disabled",false);
-    $('#userdescribe').attr("disabled",false);
-    $('#update').attr("disabled",false);
-    $('#file').attr("disabled",false);
+    $('#file').attr("disabled",false); //文件上传可点击
+    $('#userphoto').css('cursor','pointer');
+    $('#update').attr("disabled",false); //提交按钮可点击
+
+    $("#table tr:nth-child(3) td div").css('display','none');
+    $("#table tr:nth-child(4) td div").css('display','none');
+    $("#table tr:nth-child(6) td:nth-child(2) div").css('display','none');
+
+    $("#table tr:nth-child(3) td input").css('border','1px solid black');
+    $("#table tr:nth-child(4) td input").css('border','1px solid black');
+    $("#table tr:nth-child(6) td:nth-child(2) textarea").css('border','1px solid black');
 });
 //头像上传
 $("#userphoto").click(function () {

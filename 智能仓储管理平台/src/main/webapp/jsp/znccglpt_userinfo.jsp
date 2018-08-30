@@ -22,35 +22,59 @@
                     </td>
                     <td width="100px"></td>
                     <td>ID：</td>
-                    <td><input id="id" name="id" readonly = "readonly"></td>
+                    <td>
+                        <div class="block"></div>
+                        <input id="id" name="id">
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>用户名：</td>
-                    <td><input id="username" name="username" readonly = "readonly"></td>
+                    <td>
+                        <div class="block"></div>
+                        <input id="username" name="username">
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>密码：</td>
-                    <td><input type="password" id="password" name="password" disabled="disabled"></td>
+                    <td>
+                        <div class="block"></div>
+                        <input type="password" id="password" name="password" >
+                    </td>
                 </tr>
                 <tr>
                     <td>真实姓名：</td>
-                    <td><input id="realname" name="realname" disabled="disabled"></td>
+                    <td>
+                        <div class="block"></div>
+                        <input id="realname" name="realname">
+                    </td>
                     <td></td>
                     <td>联系方式：</td>
-                    <td><input id="phonumber" name="phonumber" disabled="disabled"></td>
+                    <td>
+                        <div class="block"></div>
+                        <input id="phonumber" name="phonumber">
+                    </td>
                 </tr>
                 <tr>
                     <td>权限：</td>
-                    <td><input id="type" name="type" readonly = "readonly"></td>
+                    <td>
+                        <div class="block"></div>
+                        <input id="type" name="type">
+                    </td>
                     <td></td>
                     <td>上级：</td>
-                    <td><input id="director" name="director" readonly = "readonly"></td>
+                    <td>
+                        <div class="block"></div>
+                        <input id="director" name="director">
+                    </td>
                 </tr>
                 <tr>
                     <td>个人简介：</td>
-                    <td colspan="4"><textarea id="userdescribe" name="userdescribe" disabled="disabled"></textarea></td>
+                    <td colspan="4">
+                        <div class="textareablock"></div>
+                        <textarea id="userdescribe" name="userdescribe"></textarea>
+                    </td>
                 </tr>
                 </form>
             </table>

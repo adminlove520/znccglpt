@@ -1,4 +1,7 @@
 /*个人资料*/
+input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset;
+}
 #userinfo{
   width: 90%;
   height: 90%;
@@ -21,16 +24,21 @@
 }
 #table{
     width: 100%;
-    height: 85%;
+    height: 88%;
     font-size: 25px;
 }
+#table tr td{
+    height: 14%;
+    position: relative;
+}
 #table tr td input{
-    width: 100%;
+    width: 101%;
     height: 50px;
     font-size: 20px;
+    border:none;
 }
 #table tr:nth-child(6){
-    height: 150px;
+    height: 25%;
 }
 #table tr:nth-child(1) td{
     vertical-align: top;
@@ -63,12 +71,29 @@
 #userdescribe{
     width: 100%;
     height: 140px;
+    border:none;
     color: black;
     font-size: 25px;
 }
+.block{
+    width: 100%;
+    height: 50px;
+    opacity: 0.5;
+    position: absolute;
+    border: 1px solid black;
+    background-color: #CCCCCC;
+}
+.textareablock{
+    width: 100%;
+    height: 140px;
+    opacity: 0.5;
+    position: absolute;
+    border: 1px solid black;
+    background-color: #CCCCCC;
+}
 #button{
     width: 100%;
-    height: 15%;
+    height: 12%;
     position: relative;
 }
 #button button{
@@ -83,9 +108,11 @@
 }
 #change{
     left: 300px;
+    cursor: pointer;
 }
 #update{
     right: 300px;
+    cursor: pointer;
 }
 #button button:hover{
     background-color: #CCCCCC;
