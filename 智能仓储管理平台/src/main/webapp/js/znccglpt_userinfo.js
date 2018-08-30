@@ -69,7 +69,7 @@ $("#userphoto").click(function () {
 });
 //更新
 $("#update").click(function (){
-    var formData = new FormData($("#upload")[0]);
+    var formData = new FormData($("#updateform")[0]);
     $.ajax({
         type: "post",
         url: "/ssm/doUpdate",

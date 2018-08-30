@@ -10,7 +10,7 @@
         <div id="title">我的资料</div>
         <div id="info">
             <table id="table">
-                <form method="post" enctype="multipart/form-data" id="upload">
+                <form method="post" enctype="multipart/form-data" id="updateform">
                 <tr>
                     <td rowspan="3">头像：</td>
                     <td rowspan="3" style="position: relative">
