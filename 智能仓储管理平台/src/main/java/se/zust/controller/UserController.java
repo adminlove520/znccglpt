@@ -142,10 +142,70 @@ public class UserController {
 		jsonObject.put("user",user);
 		return jsonObject;
 	}
-  	//个人信息更新
-  	@RequestMapping(value="/doUpdate",method=RequestMethod.POST)
+	//个人信息更新
+	private static final String USERPHOTO_DIRECTORY = "picture\\userphoto";
+	@RequestMapping(value="/doUpdate",method=RequestMethod.POST)
 	@ResponseBody
-    public JSONObject doUpdate(@RequestParam(value = "id",required = false)int id,
+	public JSONObject doUpdate(@RequestParam(value = "file", required = false) MultipartFile file,
+							   int id,String username,String password,String realname,String phonumber,int type,String director,String userdescribe,
+							   HttpServletRequest request, HttpServletResponse response){
+		JSONObject jsonObject = new JSONObject();
+		User user = new User();
+		user.setId(id);
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setRealname(realname);
+		user.setPhonumber(phonumber);
+		user.setType(type);
+		user.setDirector(director);
+		user.setUserdescribe(userdescribe);
+
+		//本地上传头像名称
+		String imgName = file.getOriginalFilename();
+		//本地头像后缀
+		String suffix = imgName.substring(imgName.lastIndexOf(".") + 1);
+		//数据库保存路径
+		String imgurl = File.separator + USERPHOTO_DIRECTORY + File.separator + id + "_" + username + "." + suffix;
+
+		//父文件夹路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto
+		String parentPath = request.getSession().getServletContext().getRealPath("./") + USERPHOTO_DIRECTORY;
+
+		//完整路径
+		String filePath = new String();
+
+		// 如果目录不存在则创建
+		File uploadDir = new File(parentPath);
+		if (!uploadDir.exists()) {
+			uploadDir.mkdir();
+		}
+		//判断文件是否为空
+		if (!file.isEmpty()) {
+			try {
+				//文件的完整保存路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto\\userphoto1.gif
+				filePath = request.getSession().getServletContext().getRealPath("/") + USERPHOTO_DIRECTORY + File.separator + id + "_" + username + "." + suffix;
+
+				//转存文件
+				file.transferTo(new File(filePath));
+
+				service.updateUserPhoto(id,imgurl);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		jsonObject.put("imgName",imgName);
+		jsonObject.put("suffix",suffix);
+		jsonObject.put("imgurl",imgurl);
+		jsonObject.put("parentPath",parentPath);
+		jsonObject.put("filePath",filePath);
+		service.updateUser(user);
+		jsonObject.put("user",user);
+		return jsonObject;
+	}
+  	//个人信息更新(旧)
+  	@RequestMapping(value="/doUpdate2",method=RequestMethod.POST)
+	@ResponseBody
+    public JSONObject doUpdate2(@RequestParam(value = "id",required = false)int id,
 							   @RequestParam(value = "username",required = false)String username,
 							   @RequestParam(value = "password",required = false)String password,
 							   @RequestParam(value = "realname",required = false)String realname,
@@ -279,43 +339,41 @@ public class UserController {
     	return "test";
     }
 
-	private static final String UPLOAD_DIRECTORY = "upload";
-
-	@RequestMapping(value="/testUpload",method=RequestMethod.POST)
-	@ResponseBody
-	public JSONObject testUpload(
-			@RequestParam(value = "file", required = false) MultipartFile file,
-			String id,
-								 HttpServletRequest request, HttpServletResponse response){
-		JSONObject jsonObject = new JSONObject();
-
-		String filePath = new String();
-		//父文件夹路径
-		String uploadPath = request.getSession().getServletContext().getRealPath("./") + UPLOAD_DIRECTORY;
-
-		// 如果目录不存在则创建
-		File uploadDir = new File(uploadPath);
-		if (!uploadDir.exists()) {
-			uploadDir.mkdir();
-		}
-		//判断文件是否为空
-		if (!file.isEmpty()) {
-			try {
-				//文件的完整保存路径
-				filePath = request.getSession().getServletContext().getRealPath("/") + UPLOAD_DIRECTORY + File.separator + file.getOriginalFilename();
-
-				//转存文件
-				file.transferTo(new File(filePath));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-
-		jsonObject.put("uploadPath",uploadPath);
-		jsonObject.put("filePath",filePath);
-		jsonObject.put("id",id);
-  		return jsonObject;
-	}
+//	@RequestMapping(value="/testUpload",method=RequestMethod.POST)
+//	@ResponseBody
+//	public JSONObject testUpload(
+//			@RequestParam(value = "file", required = false) MultipartFile file,
+//			String id,
+//								 HttpServletRequest request, HttpServletResponse response){
+//		JSONObject jsonObject = new JSONObject();
+//
+//		String filePath = new String();
+//		//父文件夹路径
+//		String uploadPath = request.getSession().getServletContext().getRealPath("./") + UPLOAD_DIRECTORY;
+//
+//		// 如果目录不存在则创建
+//		File uploadDir = new File(uploadPath);
+//		if (!uploadDir.exists()) {
+//			uploadDir.mkdir();
+//		}
+//		//判断文件是否为空
+//		if (!file.isEmpty()) {
+//			try {
+//				//文件的完整保存路径
+//				filePath = request.getSession().getServletContext().getRealPath("/") + UPLOAD_DIRECTORY + File.separator + file.getOriginalFilename();
+//
+//				//转存文件
+//				file.transferTo(new File(filePath));
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//
+//		jsonObject.put("uploadPath",uploadPath);
+//		jsonObject.put("filePath",filePath);
+//		jsonObject.put("id",id);
+//  		return jsonObject;
+//	}
 
 }

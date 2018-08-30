@@ -19,18 +19,20 @@ $.ajax({
         $("#password").val(data.user.password);
         $("#realname").val(data.user.realname);
         $("#phonumber").val(data.user.phonumber);
-        if(data.user.type == 0){
-            $("#type").val("管理员");
-        }
-        if(data.user.type == 1){
-            $("#type").val("用户");
-        }
-        if(data.user.type == ""){
-            $("#director").val("无");
-        }
-        else{
+        // if(data.user.type == 0){
+        //     $("# if(data.user.type == 1){type").val("管理员");
+        //         // }
+        //         //
+        //     $("#type").val("用户");
+        // }
+        // if(data.user.director == ""){
+        //     $("#director").val("无");
+        // }
+        $("#type").val(data.user.type);
+        $("#director").val(data.user.director);
+        // else{
             $("#director").val(data.user.director);
-        }
+        // }
         $("#userdescribe").val(data.user.userdescribe);
         if(data.user.imgurl != ""){
             $("#userphoto").attr("src",data.user.imgurl);
@@ -83,35 +85,32 @@ $("#update").click(function (){
     var imgname = imgurl.substring(imgurl.lastIndexOf("\\") + 1);
     console.log(imgurl);
     console.log(imgname);
-    if(type == "管理员"){
-        type = 0;
-    }
-    if(type == "用户"){
-        type = 1;
-    }
+    // if(type == "管理员"){
+    //     type = 0;
+    // }
+    // if(type == "用户"){
+    //     type = 1;
+    // }
     var director = $("#director").val();
-    if(director == "无"){
-        director = "";
-    }
+    // if(director == "无"){
+    //     director = "";
+    // }
     var userdescribe = $("#userdescribe").val();
+
+
+
+    var formData = new FormData($("#upload")[0]);
     $.ajax({
         type: "post",
         url: "/ssm/doUpdate",
-        data: {
-            id:id,
-            username: username,
-            password: password,
-            realname: realname,
-            phonumber: phonumber,
-            type: type,
-            director: director,
-            userdescribe: userdescribe,
-            imgurl: imgurl, //虚假路径
-            imgname: imgname
-        },
+        data: formData ,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
         success: function (data) {
             // console.log("success");
-            // console.log(data);
+            console.log(data);
             alert("更新成功！");
             parent.location.reload();
         },
