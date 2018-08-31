@@ -59,11 +59,33 @@ var insertHtml = function (start,end) {
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.username + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.realname + '</td>';
         strhtml = strhtml + '<td style="width: 20%;">' + userinfo.phonumber + '</td>';
-        strhtml = strhtml + '<td style="width: 10%;">' + userinfo.type + '</td>';
-        strhtml = strhtml + '<td style="width: 10%;">' + userinfo.director + '</td>';
-        strhtml = strhtml + '<td style="width: 15%;"><button id="changeuserinfo">编辑</button> | <button id="deleteuser">删除</button></td>';
+        strhtml = strhtml + '<td style="width: 8%;">' + userinfo.type + '</td>';
+        strhtml = strhtml + '<td style="width: 8%;">' + userinfo.director + '</td>';
+        strhtml = strhtml + '<td style="width: 19%;"><button id="userdetail">详情</button>|<button id="changeuserinfo">编辑</button>|<button id="deleteuser">删除</button></td>';
         $("#userlist").append(strhtml);
     }
+    //详情
+    $("#userlist").on("click","tr td #userdetail",function () {
+        $('#userinfodetail').show();
+        $(".shandow").show().css('z-index', '11');
+
+        var i  = $(this).parent().parent().attr("arrId");
+        var userinfo = userList[i];
+        if(userinfo.imgurl == ""){
+            $("#userphoto").attr("src", "/picture/system/1.jpeg");
+        }
+        else{
+            $("#userphoto").attr("src", userinfo.imgurl);
+        }
+        $("#id").text(userinfo.id);
+        $("#username").text(userinfo.username);
+        $("#password").text(userinfo.password);
+        $("#realname").text(userinfo.realname);
+        $("#phonumber").text(userinfo.phonumber);
+        $("#type").text(userinfo.type);
+        $("#director").text(userinfo.director);
+        $("#userdescribe").text(userinfo.userdescribe);
+    });
     //编辑
     $("#userlist").on("click","tr td #changeuserinfo",function () {
         infoType = 1;
@@ -281,6 +303,11 @@ $(".cancel").bind("click", function() {
         $('#updatedetail').hide();
     }
     $(".shandow").hide().css('z-index','-1');
+});
+//确认详情
+$("#quit").bind("click", function() {
+    $('#userinfodetail').hide();
+    $(".shandow").hide().css('z-index', '-1');
 });
 var addUser = function () {
     var formData = new FormData($("#adduserinfoform")[0]);

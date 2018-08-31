@@ -42,6 +42,43 @@
             </div>
         </div>
     </div>
+    <div id="userinfodetail" class="detail" tabindex="0">
+        <table>
+            <th colspan="2" style="text-align: center;">
+                —————— <span>用户详情</span> ——————
+            </th>
+            <tr>
+                <td rowspan="3">
+                    头&emsp;&emsp;像：
+                    <img id="userphoto" class="userphoto">
+                </td>
+                <td>用户&emsp;ID：<span id="id"></span></td>
+            </tr>
+            <tr>
+                <td>用&nbsp;&thinsp;户&thinsp;&nbsp;名：<span id="username"></span></td>
+            </tr>
+            <tr>
+                <td>账号密码：<span id="password"></span></td>
+            </tr>
+            <tr>
+                <td>真实姓名：<span id="realname"></span></td>
+                <td>联系方式：<span id="phonumber"></span></td>
+            </tr>
+            <tr>
+                <td>权&emsp;&emsp;限：<span name="type" id="type" class="readonly" readonly="readonly"></span></td>
+                <td>上&emsp;&emsp;级：<span name="director" id="director" class="readonly" readonly="readonly"></span></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    个人简介：
+                    <span id="userdescribe"></span>
+                </td>
+            </tr>
+        </table>
+        <div id="confirm">
+            <div id="quit">取消</div>
+        </div>
+    </div>
     <div id="adddetail" class="detail" tabindex="0">
         <table>
             <form method="post" enctype="multipart/form-data" id="adduserinfoform">

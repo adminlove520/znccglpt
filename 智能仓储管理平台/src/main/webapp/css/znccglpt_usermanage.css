@@ -92,6 +92,9 @@
 #userlist button:nth-child(2){
     color: purple;
 }
+#userlist button:nth-child(3){
+    color: green;
+}
 #userlist tr{
     height: 43px;
     font-size: 20px;
@@ -126,7 +129,7 @@
     z-index: 999;
     border: 1px solid #C2C2C2;
     border-radius: 15px;
-    padding:60px 60px 60px 60px;
+    padding:30px 30px 30px 30px;
     background-color: #FFFFFF;
     display: none;
 }
@@ -142,6 +145,11 @@
 }
 .detail table input{
     width: 150px;
+}
+#userinfodetail{
+    position: fixed;
+    margin: 0;
+    top: 15%;
 }
 .userphoto{
     width: 150px;
@@ -165,6 +173,25 @@
     line-height: 30px;
     border-radius: 15px;
     margin: 30px 55px 0 55px;
+}
+#confirm{
+     width: 100%;
+     height: 60px;
+     position: relative;
+}
+#confirm div{
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    margin: auto;
+    top: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+    color: #FFFFFF;
+    background-color: #15D6BA;
 }
 .save{
     float: left;
