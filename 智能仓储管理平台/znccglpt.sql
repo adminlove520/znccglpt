@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-08-28 17:17:16
+Date: 2018-08-31 16:18:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -153,33 +153,26 @@ CREATE TABLE `user` (
   `userdescribe` varchar(255) DEFAULT NULL,
   `imgurl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=695 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=702 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '123456', '超级管理员', '15869100556', '0', '', '超级管理员账号', '\\picture\\userphoto\\1_admin.gif');
-INSERT INTO `user` VALUES ('2', 'admin2', '123456789', '铁甲小宝', '13336077906', '0', '', null, null);
-INSERT INTO `user` VALUES ('3', 'admin3', '123', '习习蛤蛤', '15869100556', '0', '', null, null);
-INSERT INTO `user` VALUES ('4', '蛤蛤', '123456', '蛤蛤', '13588756387', '1', 'admin', '', '\\picture\\userphoto\\4_蛤蛤.jpg');
-INSERT INTO `user` VALUES ('5', '江信江疑', '123', '江信江疑', '11011011011', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('6', '董先生', '123456', '董先生', '13588756387', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('7', '华莱士', '123', '华莱士', '10000000000', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('8', '西方记者', '123456', '西方记者', '13588756387', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('9', '长者', '123', '长者', '10000000000', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('10', '-1s', '123456', '-1s', '13588756387', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('11', '青蛙长老', '123', '青蛙长老', '10000000000', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('12', '呱呱', '123456', '呱呱', '13588756387', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('13', '真香教徒', '123456', '王境泽', '15869100556', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('14', '时间长者', '123456', '时间长者', '13588756387', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('15', 'The  让', '123', '五五让', '4396', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('16', 'UZI', '123', '乌兹', '15860321057', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('17', '赛文老祖', '158', '七酱', '4396777', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('18', '因缺思厅', '666', 'interesting', '15366694581', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('19', '一颗赛艇', '123456', '一颗赛艇', '13522015368', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('21', '力之金阁', '123456', '内马尼亚·维迪奇', '四dark♂金刚', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('22', '技之银阁', '123456', '弗兰克·兰帕德', '四dark♂金刚', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('23', '动之铜阁', '123456', '韦恩·鲁尼', '四dark♂金刚', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('24', '壁之铁阁', '123456', '里奥·梅西', '四dark♂金刚', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('25', '我，五五开，没开挂', '123', '卢本伟', '11011011011', '1', 'admin', null, null);
-INSERT INTO `user` VALUES ('26', '吾王', '666', '比利·海灵顿', '乖乖♂站好', '1', 'admin', null, null);
+INSERT INTO `user` VALUES ('1', '蕉龙', '123456', '香♂蕉♂君', '15869100556', '0', '', '香蕉君可能会迟到，但绝不会缺席。', '\\picture\\userphoto\\20180831161627.gif');
+INSERT INTO `user` VALUES ('2', 'admin2', '123456', '铁甲小宝', '13336077906', '0', '', null, null);
+INSERT INTO `user` VALUES ('3', 'admin3', '123456', '习习蛤蛤', '13588756387', '0', '', null, null);
+INSERT INTO `user` VALUES ('4', '守护神', '123456', '赤さん', '14311307145', '1', '蕉龙', '拥有天真无邪的笑容的能力是日暮里的守护神拥有天真无邪的笑容的能力，是日暮里的守护神，名义上的王：妖精王', '\\picture\\userphoto\\20180831160847.jpg');
+INSERT INTO `user` VALUES ('5', '森の大統領', '123456', 'チャべス♂オバマ', '13574945635', '1', '蕉龙', '实际掌握权力的人，拥有肉体演说的能力', '\\picture\\userphoto\\20180831161318.png');
+INSERT INTO `user` VALUES ('6', '森の妖精', '123456', '比利·海灵顿', '13957145932', '1', '蕉龙', '实际上是新日暮里数一数二的强者，世人爱称：王の兄貴、森の妖精。曾与カズヤ和贝奥兰迪等众多高手过招，并都战胜了他们。能力：空手道 、尻の击打 、光の力（光明方大妖精赐予比利的高于常人的超强力量）、光の舞 、开启光明形态（攻击附带光明属性，主要克制亡灵和恶魔）、哲学の说教。', '\\picture\\userphoto\\20180831160855.jpg');
+INSERT INTO `user` VALUES ('7', '暗の妖精', '123456', 'VAN様', '13674958745', '1', '蕉龙', '黑暗方绝对统领：暗の妖精  受到了日暮里上古恶魔King石井的感召从TDN♂コスギ变成了Van Darkholme，并致力于将石井再次复活。分为表层形态和暗黑形态：表层形态战斗力一般，不过善用计策，附带说教和挑衅。VAN様真正的实力是开暗黑形态后，此形态下属性全面提升，能施放多种技能。', '\\picture\\userphoto\\20180831161216.jpg');
+INSERT INTO `user` VALUES ('8', '力之♂金阁', '123456', 'Jirka Kalvoda ', '12345678900', '1', '蕉龙', null, null);
+INSERT INTO `user` VALUES ('9', '技之♂银阁', '123456', 'Jarda Kolar ', '12345678900', '1', '蕉龙', null, null);
+INSERT INTO `user` VALUES ('10', '动之♂铜阁', '123456', 'Beau Bradley', '12345678900', '1', '蕉龙', null, null);
+INSERT INTO `user` VALUES ('11', '壁之♂铁阁', '123456', 'Sonny Markham ', '12345678900', '1', '蕉龙', null, null);
+INSERT INTO `user` VALUES ('12', '蛤蛤', '123456', '江信江疑', '11011011011', '1', '蕉龙', '', '\\picture\\userphoto\\20180831160904.gif');
+INSERT INTO `user` VALUES ('13', '窃格瓦拉', '123456', '周某', '', '1', '蕉龙', '打工是不可能打工的，这辈子都不可能打工的', '\\picture\\userphoto\\20180831160912.jpg');
+INSERT INTO `user` VALUES ('14', '社会主义好', '123456', '社会主义接班人', '', '1', '蕉龙', '', '\\picture\\userphoto\\20180831160918.jpg');
+INSERT INTO `user` VALUES ('15', '屎忽鬼', '123456', '乌蝇哥', '', '1', '蕉龙', '呀屎啊你', '\\picture\\userphoto\\20180831160926.gif');
+INSERT INTO `user` VALUES ('16', 'Duang', '123456', '成龙大哥', '', '1', '蕉龙', '', '\\picture\\userphoto\\20180831160932.gif');
+INSERT INTO `user` VALUES ('17', '金坷垃', '123456', '农民伯伯', '', '1', '蕉龙', '金坷垃的好处都有啥,谁说对了分就给他', '\\picture\\userphoto\\20180831160940.gif');
+INSERT INTO `user` VALUES ('18', '吟诗鬼才', '123456', '梁逸峰', '', '1', '蕉龙', '', '\\picture\\userphoto\\20180831160946.jpg');
