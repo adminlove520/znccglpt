@@ -115,7 +115,7 @@
     width: 30px;
     text-align: center;
 }
-#detail{
+.detail{
     position: fixed;
     margin: 0;
     top: 18%;
@@ -128,16 +128,26 @@
     background-color: #FFFFFF;
     display: none;
 }
-#detail table{
+#userphoto{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 5%;
+    bottom: 0;
+}
+.detail table{
     text-align: left;
 }
-#detail table tr{
+.detail table tr{
     height: 50px;
 }
-#detail table tr td{
+.detail table tr td{
     width: 240px;
+    position: relative;
 }
-#detail table input{
+.detail table input{
     width: 150px;
 }
 #operation div{

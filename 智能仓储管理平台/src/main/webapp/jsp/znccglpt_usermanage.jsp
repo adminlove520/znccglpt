@@ -42,27 +42,36 @@
             </div>
         </div>
     </div>
-    <div id="detail" tabindex="0">
+    <div id="updatedetail" class="detail" tabindex="0">
         <table>
-            <th colspan="2" style="text-align: center;">
-                —————— <span id="detailtitle"></span> ——————
-            </th>
-            <tr>
-                <td id="a">用户&emsp;ID：<span id="id"></span></td>
-            </tr>
-            <tr>
-                <td id="b">用&nbsp;&thinsp;户&thinsp;&nbsp;名：<span id="username"></span></td>
-                <td id="c">账号密码：<span id="password"></span></td>
-            </tr>
-            <tr>
-                <td>真实姓名：<span id="realname"></span></td>
-                <td>联系方式：<span id="phonumber"></span></td>
-            </tr>
-            <tr>
-                <td>权&emsp;&emsp;限：<span id="type"></span></td>
-                <td>上&emsp;&emsp;级：<span id="director"></span></td>
-                <span id="userdescribe" style="display: none"></span>
-            </tr>
+            <form method="post" enctype="multipart/form-data" class="userinfoform">
+                <th colspan="2" style="text-align: center;">
+                    —————— <span>用户信息编辑</span> ——————
+                </th>
+                <tr>
+                    <td id="tduserphoto" rowspan="3">
+                        头&emsp;&emsp;像：
+                        <img id="userphoto">
+                        <input type="file" id="file" name="file" style="display:none;">
+                    </td>
+                    <td>用户&emsp;ID：<input name="id" id="id"></input></td>
+                </tr>
+                <tr>
+                    <td>用&nbsp;&thinsp;户&thinsp;&nbsp;名：<input name="username" id="username"></td>
+                </tr>
+                <tr>
+                    <td>账号密码：<input name="password" id="password"></input></td>
+                </tr>
+                <tr>
+                    <td>真实姓名：<input name="realname" id="realname"></td>
+                    <td>联系方式：<input name="phonumber" id="phonumber"></input></td>
+                </tr>
+                <tr>
+                    <td>权&emsp;&emsp;限：<input name="type" id="type"></td>
+                    <td>上&emsp;&emsp;级：<input name="director" id="director"></td>
+                    <input name="userdescribe" id="userdescribe" style="display:none;"></input>
+                </tr>
+            </form>
         </table>
         <div  id="operation">
             <div id="save">保存</div>

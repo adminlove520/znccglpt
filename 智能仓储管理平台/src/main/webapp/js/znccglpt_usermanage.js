@@ -67,22 +67,25 @@ var insertHtml = function (start,end) {
     //编辑
     $("#userlist").on("click","tr td #changeuserinfo",function () {
         infoType = 1;
-        $("#detailtitle").text("用户信息编辑");
-        $("#a").html("用户&emsp;ID：<span id='id'></span>");
-        $("#b").html("用&nbsp;&thinsp;户&thinsp;&nbsp;名：<span id='username'></span>");
-        $("#c").html("账号密码：<span id='password'></span>");
+        $('#updatedetail').show();
+        $(".shandow").show().css('z-index', '11');
+
         var i  = $(this).parent().parent().attr("arrId");
         var userinfo = userList[i];
-        $('#detail').show();
-        $(".shandow").show().css('z-index', '11');
-        $("#id").text(userinfo.id);
-        $("#username").text(userinfo.username);
-        $("#password").html("<input type='password' value='"+userinfo.password+"'>");
-        $("#realname").html("<input value='"+userinfo.realname+"'>");
-        $("#phonumber").html("<input value='"+userinfo.phonumber+"'>");
-        $("#type").text(1);
-        $("#director").text(userinfo.director);
-        $("#userdescribe").text(userinfo.userdescribe);
+        if(userinfo.imgurl == ""){
+            $("#userphoto").attr("src", "/picture/system/1.jpeg");
+        }
+        else{
+            $("#userphoto").attr("src", userinfo.imgurl);
+        }
+        $("#id").val(userinfo.id);
+        $("#username").val(userinfo.username);
+        $("#password").val(userinfo.password);
+        $("#realname").val(userinfo.realname);
+        $("#phonumber").val(userinfo.phonumber);
+        $("#type").val(userinfo.type);
+        $("#director").val(userinfo.director);
+        $("#userdescribe").val(userinfo.userdescribe);
     });
     //删除
     $("#userlist").on("click","tr td #deleteuser",function () {
@@ -193,66 +196,82 @@ $("#Go").bind("click", function() {
         window.location.href = "znccglpt_usermanage?"+UserName+"&&"+pageno;
     }
 });
+//头像预览
+$("#userphoto").click(function () {
+    $("#file").click();
+    $("#file").on("change",function() {
+        var files = event.target.files, file;
+        if (files && files.length > 0) {
+            // 获取目前上传的文件
+            file = files[0]; //文件大小校验的动作
+            if (file.size > 1024 * 1024 * 2) {
+                alert('图片大小不能超过 2MB!');
+                return false;
+            }
+            var URL = window.URL || window.webkitURL;
+            // 通过 file 生成目标 url
+            var imgURL = URL.createObjectURL(file);
+            //用attr将img的src属性改成获得的url
+            $("#userphoto").attr("src", imgURL);
+        }
+    });
+});
 //新增
 $("#adduser").bind("click", function() {
     infoType = 0;
     $('#detail').show();
     $(".shandow").show().css('z-index', '11');
     $("#detailtitle").text("用户新增");
-    // $("#id").text("系统自动生成");
-    // $("#username").html("<input type='username'>");
-    // $("#password").html("<input type='password'>");
-    $("#a").html("用&nbsp;&thinsp;户&thinsp;&nbsp;名：<span id='username'><input type='username'></span>");
-    $("#b").html("账号密码：<span id='password'><input type='password'></span>");
-    $("#c").html("确认密码：<span id='password2'><input type='password'></span>");
-    $("#realname").html("<input type='realname'>");
-    $("#phonumber").html("<input type='phonumber'>");
-    $("#type").text(1);
-    $("#director").text(UserName);
+
+    $("#a").html("用&nbsp;&thinsp;户&thinsp;&nbsp;名：<input name='username' id='username'>");
+    $("#b").html("账号密码：<input type='password' name='password' id='password'>");
+    $("#c").html("确认密码：<input type='password' id='password2'>");
+    $("#type").val(1);
+    $("#director").val(UserName);
 });
 //保存编辑
 $("#save").bind("click", function() {
     if(infoType == 0){
-        var username = $('#username').children("input").val();
-        var password = $('#password').children("input").val();
-        var password2 = $('#password2').children("input").val();
-        var realname = $('#realname').children("input").val();
-        var phonumber = $('#phonumber').children("input").val();
-        var type = $('#type').text();
-        var director = $('#director').text();
-        if((username == "")||(password == "")||(password2 == "")||(realname == "")||(phonumber == "")){
-            alert("请输入新增用户信息！");
-        }
-        else if(password != password2){
-            alert("密码不一致，请重新输入！");
-        }
-        else if(phonumber.length != 11){
-            alert("请输入正确的手机号码！");
-        }
-        else{
-            addUser(username,password,realname,phonumber,type,director);
-        }
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var password2 = $('#password2').val();
+        var realname = $('#realname').val();
+        var phonumber = $('#phonumber').val();
+        var type = $('#type').val();
+        var director = $('#director').val();
+        console.log(username);
+        console.log(password);
+        console.log(password2);
+        console.log(realname);
+        console.log(phonumber);
+        console.log(type);
+        console.log(director);
+
+        // if((username == "")||(password == "")||(password2 == "")||(realname == "")||(phonumber == "")){
+        //     alert("请输入新增用户信息！");
+        // }
+        // else if(password != password2){
+        //     alert("密码不一致，请重新输入！");
+        // }
+        // else if(phonumber.length != 11){
+        //     alert("请输入正确的手机号码！");
+        // }
+        // else{
+        //     addUser(username,password,realname,phonumber,type,director);
+        // }
     }
     else if(infoType == 1){
-        var id = $('#id').text();
-        var username = $('#username').text();
-        var password = $('#password').children("input").val();
-        var realname = $('#realname').children("input").val();
-        var phonumber = $('#phonumber').children("input").val();
-        var type = $('#type').text();
-        var director = $('#director').text();
-        var userdescribe = $('#userdescribe').text();
-        if(phonumber.length != 11){
-            alert("请输入正确的手机号码！");
-        }
-        else{
-            updateUser(id,username,password,realname,phonumber,type,director,userdescribe);
-        }
+        updateUser();
     }
 });
 //取消编辑
 $("#cancel").bind("click", function() {
-    $('#detail').hide();
+    if(infoType == 0){
+        $('#adddetail').hide();
+    }
+    else if(infoType == 1){
+        $('#updatedetail').hide();
+    }
     $(".shandow").hide().css('z-index','-1');
 });
 var addUser = function (username,password,realname,phonumber,type,director) {
@@ -286,20 +305,16 @@ var addUser = function (username,password,realname,phonumber,type,director) {
         }
     });
 };
-var updateUser = function (id,username,password,realname,phonumber,type,director,userdescribe) {
+var updateUser = function () {
+    var formData = new FormData($(".userinfoform")[0]);
     $.ajax({
         type: "post",
         url: "/ssm/doUpdate",
-        data: {
-            id: id,
-            username: username,
-            password: password,
-            realname: realname,
-            phonumber: phonumber,
-            type: 1,
-            director: director,
-            userdescribe: userdescribe
-        },
+        data: formData ,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
         success: function (data) {
             // console.log("success");
             // console.log(data);
