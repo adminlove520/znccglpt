@@ -17,17 +17,17 @@
                 <button id="deleteusers">批量删除</button>
             </div>
             <div style="height: 85%;">
-                <table id="userlist">
+                <table id="userlist" cellpadding="0" cellspacing="0">
                     <tbody>
                     <tr>
-                        <th><span style="cursor: pointer;">全选</span></th>
-                        <th>用户ID</th>
-                        <th>用户名</th>
-                        <th>真实姓名</th>
-                        <th>联系方式</th>
-                        <th>权限</th>
-                        <th>上级</th>
-                        <th>操作</th>
+                        <td><span style="cursor: pointer;">全选</span></td>
+                        <td>用户ID</td>
+                        <td>用户名</td>
+                        <td>真实姓名</td>
+                        <td>联系方式</td>
+                        <td>权限</td>
+                        <td>上级</td>
+                        <td>操作</td>
                     </tr>
                     </tbody>
                 </table>
