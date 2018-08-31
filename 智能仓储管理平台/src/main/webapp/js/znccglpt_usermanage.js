@@ -69,6 +69,7 @@ var insertHtml = function (start,end) {
         infoType = 1;
         $('#updatedetail').show();
         $(".shandow").show().css('z-index', '11');
+        $("#userphoto_u").css("cursor","pointer");
 
         var i  = $(this).parent().parent().attr("arrId");
         var userinfo = userList[i];
@@ -240,6 +241,7 @@ $("#adduser").bind("click", function() {
     infoType = 0;
     $('#adddetail').show();
     $(".shandow").show().css('z-index', '11');
+    $("#userphoto_a").css("cursor","pointer");
 
     $("#type_a").val(1);
     $("#director_a").val(UserName);

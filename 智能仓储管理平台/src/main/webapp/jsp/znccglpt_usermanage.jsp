@@ -57,18 +57,18 @@
                     <td>用&nbsp;&thinsp;户&thinsp;&nbsp;名：<input name="username" id="username_a"></td>
                 </tr>
                 <tr>
-                    <td>账号密码：<input name="password" id="password_a"></td>
+                    <td>账号密码：<input type="password" name="password" id="password_a"></td>
                 </tr>
                 <tr>
-                    <td>确认密码：<input id="password2_a"></td>
+                    <td>确认密码：<input type="password" id="password2_a"></td>
                 </tr>
                 <tr>
                     <td>真实姓名：<input name="realname" id="realname_a"></td>
                     <td>联系方式：<input name="phonumber" id="phonumber_a"></td>
                 </tr>
                 <tr>
-                    <td>权&emsp;&emsp;限：<input name="type" id="type_a"></td>
-                    <td>上&emsp;&emsp;级：<input name="director" id="director_a"></td>
+                    <td>权&emsp;&emsp;限：<input name="type" id="type_a" class="readonly" readonly="readonly"></td>
+                    <td>上&emsp;&emsp;级：<input name="director" id="director_a" class="readonly" readonly="readonly"></td>
                 </tr>
             </form>
         </table>
@@ -89,21 +89,21 @@
                         <img id="userphoto_u" class="userphoto">
                         <input type="file" id="file_u" name="file" style="display:none;">
                     </td>
-                    <td>用户&emsp;ID：<input name="id" id="id_u"></td>
+                    <td>用户&emsp;ID：<input name="id" id="id_u" class="readonly" readonly="readonly"></td>
                 </tr>
                 <tr>
                     <td>用&nbsp;&thinsp;户&thinsp;&nbsp;名：<input name="username" id="username_u"></td>
                 </tr>
                 <tr>
-                    <td>账号密码：<input name="password" id="password_u"></td>
+                    <td>账号密码：<input type="password" name="password" id="password_u"></td>
                 </tr>
                 <tr>
                     <td>真实姓名：<input name="realname" id="realname_u"></td>
                     <td>联系方式：<input name="phonumber" id="phonumber_u"></td>
                 </tr>
                 <tr>
-                    <td>权&emsp;&emsp;限：<input name="type" id="type_u"></td>
-                    <td>上&emsp;&emsp;级：<input name="director" id="director_u"></td>
+                    <td>权&emsp;&emsp;限：<input name="type" id="type_u" class="readonly" readonly="readonly"></td>
+                    <td>上&emsp;&emsp;级：<input name="director" id="director_u" class="readonly" readonly="readonly"></td>
                     <input name="userdescribe" id="userdescribe_u" style="display:none;">
                 </tr>
             </form>
