@@ -12,9 +12,9 @@
         <div id="manage">
             <div id="managebutton" align="center">
                 <input id="select" type="search" placeholder="请输入ID/用户名/真实姓名">
-                <button id="selectByIdOrUserName">查询</button>
-                <button id="adduser">新增</button>
-                <button id="deleteusers">批量删除</button>
+                <div id="selectByIdOrUserName">查询</div>
+                <div id="adduser">新增</div>
+                <div id="deleteusers">批量删除</div>
             </div>
             <div style="height: 85%;">
                 <table id="userlist" cellpadding="0" cellspacing="0">

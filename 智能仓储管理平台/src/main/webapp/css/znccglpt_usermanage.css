@@ -40,9 +40,14 @@
     width: 200px;
     height: 30px;
 }
-#managebutton button{
+#managebutton div{
     width: 100px;
     height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+    color: #FFFFFF;
+    background-color: #15D6BA;
 }
 #select{
     position: absolute;
