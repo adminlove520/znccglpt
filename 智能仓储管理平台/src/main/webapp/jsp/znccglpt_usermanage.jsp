@@ -11,7 +11,7 @@
         <div id="title">用户管理</div>
         <div id="manage">
             <div id="managebutton" align="center">
-                <input id="select" type="search" placeholder="请输入ID/用户名">
+                <input id="select" type="search" placeholder="请输入ID/用户名/真实姓名">
                 <button id="selectByIdOrUserName">查询</button>
                 <button id="adduser">新增</button>
                 <button id="deleteusers">批量删除</button>

@@ -58,7 +58,7 @@
 
     <!-- 普通用户模糊查询 -->
     <select id="selectByIdOrUserName" resultMap="userMap" parameterType="se.zust.entity.User">
-        SELECT * FROM user WHERE  (username like "%"#{searchword}"%" or id = #{searchword}) and director = #{director}
+        SELECT * FROM user WHERE  (id = #{searchword} or username like "%"#{searchword}"%" or realname like "%"#{searchword}"%") and director = #{director}
     </select>
     
 
