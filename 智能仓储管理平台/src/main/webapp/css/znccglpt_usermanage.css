@@ -128,15 +128,6 @@
     background-color: #FFFFFF;
     display: none;
 }
-#userphoto{
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    margin: auto;
-    top: 0;
-    right: 5%;
-    bottom: 0;
-}
 .detail table{
     text-align: left;
 }
@@ -150,7 +141,16 @@
 .detail table input{
     width: 150px;
 }
-#operation div{
+.userphoto{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 5%;
+    bottom: 0;
+}
+.operation div{
     width: 100px;
     height: 30px;
     background-color: #15D6BA;
@@ -160,15 +160,15 @@
     border-radius: 15px;
     margin: 30px 55px 0 55px;
 }
-#save{
+.save{
     float: left;
 }
-#save:hover{
+.save:hover{
     cursor: pointer;
 }
-#cancel{
+.cancel{
     float: right;
 }
-#cancel:hover{
+.cancel:hover{
     cursor: pointer;
 }

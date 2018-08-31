@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import java.io.File;
-import java.io.IOException;
-import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -159,17 +159,19 @@ public class UserController {
 		user.setType(type);
 		user.setDirector(director);
 		user.setUserdescribe(userdescribe);
+		service.updateUser(user);
 
 		//本地上传头像名称
 		String imgName = file.getOriginalFilename();
 		//本地头像后缀
 		String suffix = imgName.substring(imgName.lastIndexOf(".") + 1);
+		//本地头像文件名（以时间戳形式保存）
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+		String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		//数据库保存路径
-		String imgurl = File.separator + USERPHOTO_DIRECTORY + File.separator + id + "_" + username + "." + suffix;
-
+		String imgurl = File.separator + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
 		//父文件夹路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto
 		String parentPath = request.getSession().getServletContext().getRealPath("./") + USERPHOTO_DIRECTORY;
-
 		//完整路径
 		String filePath = new String();
 
@@ -182,87 +184,21 @@ public class UserController {
 		if (!file.isEmpty()) {
 			try {
 				//文件的完整保存路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto\\userphoto1.gif
-				filePath = request.getSession().getServletContext().getRealPath("/") + USERPHOTO_DIRECTORY + File.separator + id + "_" + username + "." + suffix;
-
+				filePath = request.getSession().getServletContext().getRealPath("/") + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
 				//转存文件
 				file.transferTo(new File(filePath));
-
 				service.updateUserPhoto(id,imgurl);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		service.updateUser(user);
 		jsonObject.put("user",user);
 		jsonObject.put("imgurl",imgurl); //数据库保存路径
 		jsonObject.put("parentPath",parentPath); //父文件夹路径
 		jsonObject.put("filePath",filePath); //本地完整保存路径
 		return jsonObject;
 	}
-  	//个人信息更新(旧)
-  	@RequestMapping(value="/doUpdate2",method=RequestMethod.POST)
-	@ResponseBody
-    public JSONObject doUpdate2(@RequestParam(value = "id",required = false)int id,
-							   @RequestParam(value = "username",required = false)String username,
-							   @RequestParam(value = "password",required = false)String password,
-							   @RequestParam(value = "realname",required = false)String realname,
-							   @RequestParam(value = "phonumber",required = false)String phonumber,
-							   @RequestParam(value = "type",required = false)int type,
-							   @RequestParam(value = "director",required = false)String director,
-							   @RequestParam(value = "userdescribe",required = false)String userdescribe,
-							   @RequestParam(value = "imgurl",required = false)String imgurl,
-							   @RequestParam(value = "imgname",required = false)String imgname) throws IOException {
-		JSONObject jsonObject = new JSONObject();
-		User user = new User() ;
-		user.setId(id);
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setRealname(realname);
-		user.setPhonumber(phonumber);
-		user.setType(type);
-		user.setDirector(director);
-		user.setUserdescribe(userdescribe);
-		//如果用户有上传头像
-		if(imgname != ""){
-			String suffix = imgname.substring(imgname.lastIndexOf(".") + 1);
-			//头像存放路径	D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\src\\main\\webapp\\picture\\userphoto\\用户ID_用户名.文件后缀
-			String strName = "\\picture\\userphoto\\"+id+"_"+username+"."+ suffix; //src链接地址
-			String strPath = "D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\src\\main\\webapp"+strName; //完整路径
-			File file = new File(strPath);
-			if(!file.getParentFile().exists()) { //判断父目录路径是否存在
-				try{
-					file.getParentFile().mkdirs(); //不存在则创建父目录
-					file.createNewFile();
-				}catch (IOException e){
-					e.printStackTrace();
-				}
-			}
-			else{
-				if(file.exists()){ //判断子文件是否存在，已存在则删除再创建
-					file.delete();
-				}
-				file.createNewFile();
-			}
-
-			FileInputStream fi = new FileInputStream("C:\\Users\\ucmed\\Desktop\\图片\\"+imgname);
-			FileOutputStream fo = new FileOutputStream(strPath);
-			byte[] by = new byte[1024];
-			int len = 0;
-			while((len = fi.read(by)) != -1){
-				fo.write(by,0,len);
-			}
-			fi.close();
-			fo.close();
-			service.updateUserPhoto(id,strName);
-
-			jsonObject.put("来源",imgurl);
-			jsonObject.put("目标",strPath);
-
-		}
-		service.updateUser(user);
-    	return jsonObject;
-    }
 	//用户管理
 	@RequestMapping(value="/znccglpt_usermanage")
 	public String usermanage(){
@@ -290,12 +226,9 @@ public class UserController {
 	//用户新增
 	@RequestMapping(value="/doAddNormalUser",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doAddNormalUser(@RequestParam(value = "username",required = false)String username,
-									  @RequestParam(value = "password",required = false)String password,
-									  @RequestParam(value = "realname",required = false)String realname,
-									  @RequestParam(value = "phonumber",required = false)String phonumber,
-									  @RequestParam(value = "type",required = false)int type,
-									  @RequestParam(value = "director",required = false)String director){
+	public JSONObject doAddNormalUser(@RequestParam(value = "file", required = false) MultipartFile file,
+									  String username,String password,String realname,String phonumber,int type,String director,
+									  HttpServletRequest request, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
 		User user1 = service.selectUserByName(username);
 		if(user1 != null) {
@@ -310,7 +243,45 @@ public class UserController {
 			user2.setType(type);
 			user2.setDirector(director);
 			service.addUser(user2);
+
+			//本地上传头像名称
+			String imgName = file.getOriginalFilename();
+			//本地头像后缀
+			String suffix = imgName.substring(imgName.lastIndexOf(".") + 1);
+			//本地头像文件名
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+			String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+			//数据库保存路径
+			String imgurl = File.separator + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
+			//父文件夹路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto
+			String parentPath = request.getSession().getServletContext().getRealPath("./") + USERPHOTO_DIRECTORY;
+			//完整路径
+			String filePath = new String();
+
+			// 如果目录不存在则创建
+			File uploadDir = new File(parentPath);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdir();
+			}
+			//判断文件是否为空
+			if (!file.isEmpty()) {
+				try {
+					//文件的完整保存路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto\\userphoto1.gif
+					filePath = request.getSession().getServletContext().getRealPath("/") + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
+					//转存文件
+					file.transferTo(new File(filePath));
+					//获取新增用户的ID
+					int id = service.selectUserByName(username).getId();
+					service.updateUserPhoto(id,imgurl);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			jsonObject.put("result", 0); //注册成功
+			jsonObject.put("user",user2);
+			jsonObject.put("imgurl",imgurl); //数据库保存路径
+			jsonObject.put("parentPath",parentPath); //父文件夹路径
+			jsonObject.put("filePath",filePath); //本地完整保存路径
 		}
 		return jsonObject;
 	}
