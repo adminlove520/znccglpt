@@ -87,7 +87,7 @@
 }
 #userlist button{
     border: 0px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     background-color: white;
 }
@@ -101,12 +101,12 @@
     color: green;
 }
 #userlist tr{
-    height: 43px;
-    font-size: 18px;
+    height: 45px;
+    font-size: 20px;
 }
 #userlist tr:nth-child(1){
     height: 50px;
-    font-size: 20px;
+    font-size: 22px;
     background-color: #CCCCCC;
 }
 #fenye{
