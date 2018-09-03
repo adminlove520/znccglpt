@@ -20,7 +20,7 @@
                 <table id="userlist" cellpadding="0" cellspacing="0">
                     <tbody>
                     <tr>
-                        <td><span style="cursor: pointer;">全选</span></td>
+                        <td><input type="checkbox" id="all" style="width: 20px;height: 20px;"></td>
                         <td>用户ID</td>
                         <td>用户名</td>
                         <td>真实姓名</td>

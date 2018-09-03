@@ -54,7 +54,7 @@ var insertHtml = function (start,end) {
     for(var i=start;i<end;i++) {
         var userinfo = userList[i];
         var strhtml = '<tr id="' + i + '" arrId="' + i + '">';
-        strhtml = strhtml + '<td style="width: 5%;"><input type="checkbox" id="delete" style="width: 20px;height: 20px;"></td>';
+        strhtml = strhtml + '<td style="width: 5%;"><input type="checkbox" id="delete" class="checkbox" style="width: 20px;height: 20px;"></td>';
         strhtml = strhtml + '<td style="width: 10%;">' + userinfo.id + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.username + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.realname + '</td>';
@@ -147,13 +147,31 @@ $("#selectByIdOrUserName").bind("click", function() {
     var searchword = $("#select").val();
     window.location.href = "znccglpt_usermanage?"+UserName+"&"+searchword+"&1";
 });
-//批量删除
 var pId = [];
 var pid;
+//全选删除
+$("#all").click(function () {
+    var xz = $(this).prop("checked"); //判断全选按钮的选中状态
+    $(".checkbox").prop("checked",xz); //让class名为checkbox的选项的选中状态和全选按钮的选中状态一致
+    $(".checkbox").each(function() {
+        if (this.checked) {
+            var i = $(this).parent().parent().attr("arrId");
+            if(pId.indexOf(userList[i].id) == -1){
+                pId.push(userList[i].id);
+            }
+        }
+        else{
+            pId.splice(0,pId.length);
+        }
+    });
+});
+//批量删除
 $("#userlist").on("click","tr td #delete",function () {
     var i = $(this).parent().parent().attr("arrId");
     if($(this).is(':checked')) {
-        pId.push(userList[i].id);
+        if(pId.indexOf(userList[i].id) == -1){
+            pId.push(userList[i].id);
+        }
     }
     else{
         pId.splice($.inArray(userList[i].id,pId),1);
