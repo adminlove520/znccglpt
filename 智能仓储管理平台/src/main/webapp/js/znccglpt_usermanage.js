@@ -82,8 +82,8 @@ var insertHtml = function (start,end) {
         $("#password").text(userinfo.password);
         $("#realname").text(userinfo.realname);
         $("#phonumber").text(userinfo.phonumber);
-        $("#type").text(userinfo.type);
-        $("#director").text(userinfo.director);
+        $("#type").text("用户");
+        $("#director").text(UserName);
         $("#userdescribe").text(userinfo.userdescribe);
     });
     //编辑
@@ -106,7 +106,7 @@ var insertHtml = function (start,end) {
         $("#password_u").val(userinfo.password);
         $("#realname_u").val(userinfo.realname);
         $("#phonumber_u").val(userinfo.phonumber);
-        $("#type_u").val(1);
+        $("#type_u").val("用户");
         $("#director_u").val(UserName);
         $("#userdescribe_u").val(userinfo.userdescribe);
     });
@@ -283,7 +283,7 @@ $("#adduser").bind("click", function() {
     $(".shandow").show().css('z-index', '11');
     $("#userphoto_a").css("cursor","pointer");
 
-    $("#type_a").val(1);
+    $("#type_a").val("用户");
     $("#director_a").val(UserName);
 });
 //保存编辑
@@ -328,6 +328,9 @@ $("#quit").bind("click", function() {
     $(".shandow").hide().css('z-index', '-1');
 });
 var addUser = function () {
+    if($("#type_a").val() == "用户"){
+        $("#type_a").val(1);
+    }
     var formData = new FormData($("#adduserinfoform")[0]);
     $.ajax({
         type: "post",
@@ -357,6 +360,9 @@ var addUser = function () {
     });
 };
 var updateUser = function () {
+    if($("#type_u").val() == "用户"){
+        $("#type_u").val(1);
+    }
     var formData = new FormData($("#updateuserinfoform")[0]);
     $.ajax({
         type: "post",
