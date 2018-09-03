@@ -46,13 +46,19 @@ body{
 	right: 0;
 	bottom: 0;
 }
+#type{
+	margin-top: 25px;
+}
+#type div label{
+	cursor: pointer;
+}
 .loginInput{
 	width: 170px;
 	height: 30px;
 	margin-top: 25px;
 }
 .loginRadio{
-	margin-top: 25px;
+	cursor: pointer;
 }
 #user{
 	float: left;
