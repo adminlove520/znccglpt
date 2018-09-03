@@ -59,7 +59,12 @@ var insertHtml = function (start,end) {
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.username + '</td>';
         strhtml = strhtml + '<td style="width: 15%;">' + userinfo.realname + '</td>';
         strhtml = strhtml + '<td style="width: 20%;">' + userinfo.phonumber + '</td>';
-        strhtml = strhtml + '<td style="width: 8%;">' + userinfo.type + '</td>';
+        if(userinfo.type == 0){
+            strhtml = strhtml + '<td style="width: 8%;">管理员</td>';
+        }
+        if(userinfo.type == 1){
+            strhtml = strhtml + '<td style="width: 8%;">用户</td>';
+        }
         strhtml = strhtml + '<td style="width: 8%;">' + userinfo.director + '</td>';
         strhtml = strhtml + '<td style="width: 19%;"><button id="userdetail">详情</button>|<button id="changeuserinfo">编辑</button>|<button id="deleteuser">删除</button></td>';
         $("#userlist").append(strhtml);
@@ -82,8 +87,8 @@ var insertHtml = function (start,end) {
         $("#password").text(userinfo.password);
         $("#realname").text(userinfo.realname);
         $("#phonumber").text(userinfo.phonumber);
-        $("#type").text(userinfo.type);
-        $("#director").text(userinfo.director);
+        $("#type").text("用户");
+        $("#director").text(UserName);
         $("#userdescribe").text(userinfo.userdescribe);
     });
     //编辑
@@ -106,7 +111,7 @@ var insertHtml = function (start,end) {
         $("#password_u").val(userinfo.password);
         $("#realname_u").val(userinfo.realname);
         $("#phonumber_u").val(userinfo.phonumber);
-        $("#type_u").val(1);
+        $("#type_u").val("用户");
         $("#director_u").val(UserName);
         $("#userdescribe_u").val(userinfo.userdescribe);
     });
@@ -283,7 +288,7 @@ $("#adduser").bind("click", function() {
     $(".shandow").show().css('z-index', '11');
     $("#userphoto_a").css("cursor","pointer");
 
-    $("#type_a").val(1);
+    $("#type_a").val("用户");
     $("#director_a").val(UserName);
 });
 //保存编辑
@@ -328,6 +333,9 @@ $("#quit").bind("click", function() {
     $(".shandow").hide().css('z-index', '-1');
 });
 var addUser = function () {
+    if($("#type_a").val() == "用户"){
+        $("#type_a").val(1);
+    }
     var formData = new FormData($("#adduserinfoform")[0]);
     $.ajax({
         type: "post",
@@ -357,6 +365,9 @@ var addUser = function () {
     });
 };
 var updateUser = function () {
+    if($("#type_u").val() == "用户"){
+        $("#type_u").val(1);
+    }
     var formData = new FormData($("#updateuserinfoform")[0]);
     $.ajax({
         type: "post",
