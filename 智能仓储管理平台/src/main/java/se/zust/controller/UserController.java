@@ -147,7 +147,7 @@ public class UserController {
 	@RequestMapping(value="/doUpdate",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject doUpdate(@RequestParam(value = "file", required = false) MultipartFile file,
-							   int id,String username,String password,String realname,String phonumber,int type,String director,String userdescribe,
+							   int id,String username,String password,String realname,String phonumber,String type,String director,String userdescribe,
 							   HttpServletRequest request, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
 		User user = new User();
@@ -156,8 +156,18 @@ public class UserController {
 		user.setPassword(password);
 		user.setRealname(realname);
 		user.setPhonumber(phonumber);
-		user.setType(type);
-		user.setDirector(director);
+		if(type.equals("管理员")){
+			user.setType(0);
+		}
+		if(type.equals("用户")){
+			user.setType(1);
+		}
+		if(director.equals("无")){
+			user.setDirector("");
+		}
+		else{
+			user.setDirector(director);
+		}
 		user.setUserdescribe(userdescribe);
 		service.updateUser(user);
 
@@ -227,22 +237,31 @@ public class UserController {
 	@RequestMapping(value="/doAddNormalUser",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject doAddNormalUser(@RequestParam(value = "file", required = false) MultipartFile file,
-									  String username,String password,String realname,String phonumber,int type,String director,
+									  String username,String password,String realname,String phonumber,String type,String director,
 									  HttpServletRequest request, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
-		User user1 = service.selectUserByName(username);
-		if(user1 != null) {
+		User user = new User() ;
+		if(service.selectUserByName(username) != null) {
 			jsonObject.put("result", 1); //该用户已注册
 		}
 		else{
-			User user2 = new User() ;
-			user2.setUsername(username);
-			user2.setPassword(password);
-			user2.setRealname(realname);
-			user2.setPhonumber(phonumber);
-			user2.setType(type);
-			user2.setDirector(director);
-			service.addUser(user2);
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setRealname(realname);
+			user.setPhonumber(phonumber);
+			if(type.equals("管理员")){
+				user.setType(0);
+			}
+			if(type.equals("用户")){
+				user.setType(1);
+			}
+			if(director.equals("无")){
+				user.setDirector("");
+			}
+			else{
+				user.setDirector(director);
+			}
+			service.addUser(user);
 
 			//本地上传头像名称
 			String imgName = file.getOriginalFilename();
@@ -278,7 +297,7 @@ public class UserController {
 				}
 			}
 			jsonObject.put("result", 0); //注册成功
-			jsonObject.put("user",user2);
+			jsonObject.put("user",user);
 			jsonObject.put("imgurl",imgurl); //数据库保存路径
 			jsonObject.put("parentPath",parentPath); //父文件夹路径
 			jsonObject.put("filePath",filePath); //本地完整保存路径
@@ -300,49 +319,4 @@ public class UserController {
 		}
 		return jsonObject;
 	}
-
-
-    //测试
-  	@RequestMapping(value="/test")
-    public String test(){
-    	return "test";
-    }
-
-//	@RequestMapping(value="/testUpload",method=RequestMethod.POST)
-//	@ResponseBody
-//	public JSONObject testUpload(
-//			@RequestParam(value = "file", required = false) MultipartFile file,
-//			String id,
-//								 HttpServletRequest request, HttpServletResponse response){
-//		JSONObject jsonObject = new JSONObject();
-//
-//		String filePath = new String();
-//		//父文件夹路径
-//		String uploadPath = request.getSession().getServletContext().getRealPath("./") + UPLOAD_DIRECTORY;
-//
-//		// 如果目录不存在则创建
-//		File uploadDir = new File(uploadPath);
-//		if (!uploadDir.exists()) {
-//			uploadDir.mkdir();
-//		}
-//		//判断文件是否为空
-//		if (!file.isEmpty()) {
-//			try {
-//				//文件的完整保存路径
-//				filePath = request.getSession().getServletContext().getRealPath("/") + UPLOAD_DIRECTORY + File.separator + file.getOriginalFilename();
-//
-//				//转存文件
-//				file.transferTo(new File(filePath));
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//
-//		jsonObject.put("uploadPath",uploadPath);
-//		jsonObject.put("filePath",filePath);
-//		jsonObject.put("id",id);
-//  		return jsonObject;
-//	}
-
 }

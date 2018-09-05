@@ -78,15 +78,15 @@ $("#userphoto").click(function () {
 });
 //更新
 $("#update").click(function (){
-    if($("#type").val() == "管理员"){
-        $("#type").val(0);
-    }
-    if($("#type").val() == "用户"){
-        $("#type").val(1);
-    }
-    if($("#director").val() == "无"){
-        $("#director").val("");
-    }
+    // if($("#type").val() == "管理员"){
+    //     $("#type").val(0);
+    // }
+    // if($("#type").val() == "用户"){
+    //     $("#type").val(1);
+    // }
+    // if($("#director").val() == "无"){
+    //     $("#director").val("");
+    // }
     var formData = new FormData($("#updateform")[0]);
     $.ajax({
         type: "post",

@@ -333,9 +333,6 @@ $("#quit").bind("click", function() {
     $(".shandow").hide().css('z-index', '-1');
 });
 var addUser = function () {
-    if($("#type_a").val() == "用户"){
-        $("#type_a").val(1);
-    }
     var formData = new FormData($("#adduserinfoform")[0]);
     $.ajax({
         type: "post",
@@ -365,9 +362,6 @@ var addUser = function () {
     });
 };
 var updateUser = function () {
-    if($("#type_u").val() == "用户"){
-        $("#type_u").val(1);
-    }
     var formData = new FormData($("#updateuserinfoform")[0]);
     $.ajax({
         type: "post",
