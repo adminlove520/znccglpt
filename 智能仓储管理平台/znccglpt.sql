@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-09-03 11:20:26
+Date: 2018-09-05 14:28:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -153,7 +153,7 @@ CREATE TABLE `user` (
   `userdescribe` varchar(255) DEFAULT NULL,
   `imgurl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=704 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=708 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -177,3 +177,6 @@ INSERT INTO `user` VALUES ('16', 'Duang', '123456', '成龙大哥', '13674958745
 INSERT INTO `user` VALUES ('17', '金坷垃', '123456', '农民伯伯', '12345678900', '1', '蕉龙', '金坷垃的好处都有啥,谁说对了分就给他', '\\picture\\userphoto\\20180831160940.gif');
 INSERT INTO `user` VALUES ('18', '吟诗鬼才', '123456', '梁逸峰', '12345678900', '1', '蕉龙', '', '\\picture\\userphoto\\20180831160946.jpg');
 INSERT INTO `user` VALUES ('19', '吟诗鬼才', '123456', '梁逸峰', '12345678900', '1', 'admin2', '', '\\picture\\userphoto\\20180831160946.jpg');
+INSERT INTO `user` VALUES ('705', '上司', '123456', '梁非凡', '15869421501', '1', '蕉龙', null, null);
+INSERT INTO `user` VALUES ('706', '下属', '123456', '刘醒', '16956634200', '1', '蕉龙', null, null);
+INSERT INTO `user` VALUES ('707', '吃瓜群众', '123456', '666', '13566745938', '1', '蕉龙', '', null);
