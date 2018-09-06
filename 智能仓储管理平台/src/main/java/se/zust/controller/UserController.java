@@ -1,5 +1,6 @@
 package se.zust.controller;
 
+import io.swagger.annotations.*;
 import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/ssm")
-//@Scope("prototype")
+@Api(description = "用户接口")
 public class UserController {
 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -48,27 +49,28 @@ public class UserController {
     	return "账户开通2";
     }
     //注册处理
+	@ApiOperation(value = "用户注册",notes = "管理员账号注册")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "注册成功")})
 	@RequestMapping(value="/doRegister",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doregister(@RequestParam(value = "username",required = false)String username,
-										   @RequestParam(value = "password",required = false)String password,
-										   @RequestParam(value = "realname",required = false)String realname,
-										   @RequestParam(value = "phonumber",required = false)String phonumber,
-										   HttpServletRequest request){
+	public JSONObject doregister(@ApiParam(value = "用户名",required = true) @RequestParam(value = "username",required = true)String username,
+								 @ApiParam(value = "密码",required = true) @RequestParam(value = "password",required = true)String password,
+								 @ApiParam(value = "真实姓名",required = true) @RequestParam(value = "realname",required = true)String realname,
+								 @ApiParam(value = "联系方式",required = true) @RequestParam(value = "phonumber",required = true)String phonumber,
+								 HttpServletRequest request){
 		JSONObject jsonObject = new JSONObject();
-		User user1 = service.selectUserByName(username);
-		if(user1 != null) {
+		User user = new User() ;
+		if(service.selectUserByName(username) != null) {
 			jsonObject.put("result", 1); //该用户已注册
 		}
 		else{
-			User user2 = new User() ;
-			user2.setUsername(username);
-			user2.setPassword(password);
-			user2.setRealname(realname);
-			user2.setPhonumber(phonumber);
-			user2.setType(0);
-			user2.setDirector(null);
-			service.addUser(user2);
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setRealname(realname);
+			user.setPhonumber(phonumber);
+			user.setType(0);
+			user.setDirector(null);
+			service.addUser(user);
 			request.setAttribute("username", username);
 			request.setAttribute("password", password);
 			jsonObject.put("result", 0); //注册成功
@@ -91,11 +93,13 @@ public class UserController {
   	    return "进入系统";
     }
 	//登录处理
+	@ApiOperation(value = "用户登录",notes = "用户、管理员登录")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "登录成功")})
 	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doLogin(@RequestParam(value = "username",required = false)String username,
-                              @RequestParam(value = "password",required = false)String password,
-                              @RequestParam(value = "type",required = false)int type){
+	public JSONObject doLogin(@ApiParam(value = "用户名",required = true) @RequestParam(value = "username",required = true)String username,
+							  @ApiParam(value = "密码",required = true) @RequestParam(value = "password",required = true)String password,
+							  @ApiParam(value = "权限",required = true) @RequestParam(value = "type",required = true)int type){
         JSONObject jsonObject = new JSONObject();
 		User user = service.selectUserByName(username);
 		if(user == null){
@@ -134,9 +138,11 @@ public class UserController {
 		return "znccglpt_userinfo";
 	}
 	//个人信息展示
+	@ApiOperation(value = "个人信息展示",notes = "显示当前登录用户个人信息，根据用户名查询")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "获取成功")})
 	@RequestMapping(value="/doSelect",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doSelect(@RequestParam(value = "username",required = false)String username){
+	public JSONObject doSelect(@ApiParam(value = "用户名",required = true) @RequestParam(value = "username",required = true)String username){
 		JSONObject jsonObject = new JSONObject();
 		User user = service.selectUserByName(username);
 		jsonObject.put("user",user);
@@ -144,10 +150,19 @@ public class UserController {
 	}
 	//个人信息更新
 	private static final String USERPHOTO_DIRECTORY = "picture\\userphoto";
+	@ApiOperation(value = "个人信息更新",notes = "修改当前用户个人信息，或者管理员修改名下用户信息")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "修改成功")})
 	@RequestMapping(value="/doUpdate",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doUpdate(@RequestParam(value = "file", required = false) MultipartFile file,
-							   int id,String username,String password,String realname,String phonumber,String type,String director,String userdescribe,
+	public JSONObject doUpdate(@ApiParam(value = "头像文件",required = false) @RequestParam(value = "file", required = false) MultipartFile file,
+							   @ApiParam(value = "id",required = true) @RequestParam(value = "id", required = true)int id,
+							   @ApiParam(value = "用户名",required = true) @RequestParam(value = "username", required = true)String username,
+							   @ApiParam(value = "密码",required = true) @RequestParam(value = "password", required = true)String password,
+							   @ApiParam(value = "真实姓名",required = true) @RequestParam(value = "realname", required = true)String realname,
+							   @ApiParam(value = "联系方式",required = true) @RequestParam(value = "phonumber", required = true)String phonumber,
+							   @ApiParam(value = "权限",required = true) @RequestParam(value = "type", required = true)String type,
+							   @ApiParam(value = "上级",required = true) @RequestParam(value = "director", required = true)String director,
+							   @ApiParam(value = "个人介绍",required = false) @RequestParam(value = "userdescribe", required = false)String userdescribe,
 							   HttpServletRequest request, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
 		User user = new User();
@@ -171,42 +186,9 @@ public class UserController {
 		user.setUserdescribe(userdescribe);
 		service.updateUser(user);
 
-		//本地上传头像名称
-		String imgName = file.getOriginalFilename();
-		//本地头像后缀
-		String suffix = imgName.substring(imgName.lastIndexOf(".") + 1);
-		//本地头像文件名（以时间戳形式保存）
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
-		String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-		//数据库保存路径
-		String imgurl = File.separator + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
-		//父文件夹路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto
-		String parentPath = request.getSession().getServletContext().getRealPath("./") + USERPHOTO_DIRECTORY;
-		//完整路径
-		String filePath = new String();
-
-		// 如果目录不存在则创建
-		File uploadDir = new File(parentPath);
-		if (!uploadDir.exists()) {
-			uploadDir.mkdir();
-		}
-		//判断文件是否为空
-		if (!file.isEmpty()) {
-			try {
-				//文件的完整保存路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto\\userphoto1.gif
-				filePath = request.getSession().getServletContext().getRealPath("/") + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
-				//转存文件
-				file.transferTo(new File(filePath));
-				service.updateUserPhoto(id,imgurl);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		updatePhoto(username,file,id,request);
 
 		jsonObject.put("user",user);
-		jsonObject.put("imgurl",imgurl); //数据库保存路径
-		jsonObject.put("parentPath",parentPath); //父文件夹路径
-		jsonObject.put("filePath",filePath); //本地完整保存路径
 		return jsonObject;
 	}
 	//用户管理
@@ -215,29 +197,40 @@ public class UserController {
 		return "znccglpt_usermanage";
 	}
 	//用户管理展示
+	@ApiOperation(value = "用户管理展示",notes = "获取当前管理员账号创建的用户账号信息")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "获取成功")})
 	@RequestMapping(value="/doSelectByDirector",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doSelectByDirector(@RequestParam(value = "username",required = false)String username){
+	public JSONObject doSelectByDirector(@ApiParam(value = "用户名",required = true) @RequestParam(value = "username",required = true)String username){
 		JSONObject jsonObject = new JSONObject();
 		List list = service.selectUserByDirector(username);
 		jsonObject.put("list",list);
 		return jsonObject;
 	}
 	//用户查询
+	@ApiOperation(value = "用户查询",notes = "根据ID/用户名/真实姓名查询当前管理员账号创建的用户账号信息")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "查询成功")})
 	@RequestMapping(value="/doSelectByIdOrUserName",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doSelectByIdOrUserName(@RequestParam(value = "searchword",required = false)String searchword,
-											 @RequestParam(value = "username",required = false)String username){
+	public JSONObject doSelectByIdOrUserName(@ApiParam(value = "搜索关键词",required = true) @RequestParam(value = "searchword",required = true)String searchword,
+											 @ApiParam(value = "用户名",required = true) @RequestParam(value = "username",required = true)String username){
 		JSONObject jsonObject = new JSONObject();
 		List list = service.selectByIdOrUserName(searchword,username);
 		jsonObject.put("list",list);
 		return jsonObject;
 	}
 	//用户新增
+	@ApiOperation(value = "用户新增",notes = "当前管理员账号创建用户账号")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "新增成功")})
 	@RequestMapping(value="/doAddNormalUser",method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject doAddNormalUser(@RequestParam(value = "file", required = false) MultipartFile file,
-									  String username,String password,String realname,String phonumber,String type,String director,
+	public JSONObject doAddNormalUser(@ApiParam(value = "头像文件",required = false) @RequestParam(value = "file", required = false) MultipartFile file,
+									  @ApiParam(value = "用户名",required = true) @RequestParam(value = "username", required = true)String username,
+									  @ApiParam(value = "密码",required = true) @RequestParam(value = "password", required = true)String password,
+									  @ApiParam(value = "真实姓名",required = true) @RequestParam(value = "realname", required = true)String realname,
+									  @ApiParam(value = "联系方式",required = true) @RequestParam(value = "phonumber", required = true)String phonumber,
+									  @ApiParam(value = "权限",required = true) @RequestParam(value = "type", required = true)String type,
+									  @ApiParam(value = "上级",required = true) @RequestParam(value = "director", required = true)String director,
 									  HttpServletRequest request, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
 		User user = new User() ;
@@ -263,6 +256,42 @@ public class UserController {
 			}
 			service.addUser(user);
 
+			updatePhoto(username,file,-1,request);
+
+			jsonObject.put("result", 0); //注册成功
+			jsonObject.put("user",user);
+		}
+		return jsonObject;
+	}
+	//用户删除
+	@ApiOperation(value = "用户删除",notes = "根据ID删除用户用户账号")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "删除成功")})
+	@RequestMapping(value="/doDelete",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject doDelete(@ApiParam(value = "id",required = true) @RequestParam(value = "id",required = true)int id){
+		JSONObject jsonObject = new JSONObject();
+		User user = service.selectUserById(id);
+		if(user == null){
+			jsonObject.put("result",1);
+		}
+		else{
+			service.deleteNormalUser(id);
+			jsonObject.put("result",0);
+		}
+		return jsonObject;
+	}
+
+	//将头像保存功能提取为函数
+	private void updatePhoto(String username,MultipartFile file,int id,HttpServletRequest request){
+		JSONObject jsonObject = new JSONObject();
+		//判断文件是否为空
+		if(file == null || file.getSize() == 0){
+			/*
+			file == null			用于在swagger2传值判断头像是否为空
+			file.getSize() == 0 	用于在formdata传值时判断头像是否为空
+			*/
+		}
+		else{
 			//本地上传头像名称
 			String imgName = file.getOriginalFilename();
 			//本地头像后缀
@@ -282,41 +311,35 @@ public class UserController {
 			if (!uploadDir.exists()) {
 				uploadDir.mkdir();
 			}
-			//判断文件是否为空
-			if (!file.isEmpty()) {
-				try {
-					//文件的完整保存路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto\\userphoto1.gif
-					filePath = request.getSession().getServletContext().getRealPath("/") + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
-					//转存文件
-					file.transferTo(new File(filePath));
-					//获取新增用户的ID
-					int id = service.selectUserByName(username).getId();
+
+			//保存头像至本地
+			try {
+				//文件的完整保存路径  D:\\MyProjectTest\\znccglpt\\智能仓储管理平台\\target\\智能仓储管理平台\\picture\\userphoto\\userphoto1.gif
+				filePath = request.getSession().getServletContext().getRealPath("/") + USERPHOTO_DIRECTORY + File.separator + date + "." + suffix;
+				//转存文件
+				file.transferTo(new File(filePath));
+
+				/*
+				对传过来的id进行判断
+				若id为-1，说明此id不存在，需要重新获取新添加用户的id并保存头像至该新用户资料中
+				若id不为-1，说明此id存在，则直接保存头像至此id的用户资料中
+				 */
+				if(id == -1){
+					//获取新增用户的id
+					id = service.selectUserByName(username).getId();
 					service.updateUserPhoto(id,imgurl);
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
+				else{
+					service.updateUserPhoto(id,imgurl);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			jsonObject.put("result", 0); //注册成功
-			jsonObject.put("user",user);
+
 			jsonObject.put("imgurl",imgurl); //数据库保存路径
 			jsonObject.put("parentPath",parentPath); //父文件夹路径
 			jsonObject.put("filePath",filePath); //本地完整保存路径
 		}
-		return jsonObject;
-	}
-	//用户删除
-	@RequestMapping(value="/doDelete",method=RequestMethod.POST)
-	@ResponseBody
-	public JSONObject doDelete(@RequestParam(value = "id",required = false)int id){
-		JSONObject jsonObject = new JSONObject();
-		User user = service.selectUserById(id);
-		if(user == null){
-			jsonObject.put("result",1);
-		}
-		else{
-			service.deleteNormalUser(id);
-			jsonObject.put("result",0);
-		}
-		return jsonObject;
 	}
 }
