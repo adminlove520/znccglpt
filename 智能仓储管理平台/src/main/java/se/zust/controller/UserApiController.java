@@ -59,7 +59,9 @@ public class UserApiController {
     @ResponseBody
     public JSONObject doLogin(@ApiParam(value = "用户名",required = true) @RequestParam(value = "username",required = true)String username,
                               @ApiParam(value = "密码",required = true) @RequestParam(value = "password",required = true)String password,
-                              @ApiParam(value = "权限",required = true) @RequestParam(value = "type",required = true)int type){
+                              @ApiParam(value = "验证码",required = true) @RequestParam(value = "vcode",required = true)String vcode,
+                              @ApiParam(value = "权限",required = true) @RequestParam(value = "type",required = true)int type,
+                              HttpServletRequest request){
         JSONObject jsonObject = new JSONObject();
         User user = service.selectUserByName(username);
         if(user == null){
@@ -68,8 +70,11 @@ public class UserApiController {
         else if(!user.getPassword().equals(password)){
             jsonObject.put("result", 2); //用户名或密码错误
         }
+        else if(!vcode.equals(request.getSession().getAttribute("vcode"))){
+            jsonObject.put("result", 3); //验证码错误
+        }
         else if(user.getType() != type){
-            jsonObject.put("result", 3); //权限错误
+            jsonObject.put("result", 4); //权限错误
         }
         else{
             jsonObject.put("result", 0); //登录成功
