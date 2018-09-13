@@ -2,6 +2,7 @@
 var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
+var session;
 $.ajax({
     type: "post",
     url: "/ssm/doSelect",
@@ -11,6 +12,7 @@ $.ajax({
     success: function(data) {
         // console.log("success");
         // console.log(data);
+        session = $("#LoginName").html();
         if(data.user.type == 0){
             $("#LoginName").html(username+"[管理员]");
         }
@@ -21,6 +23,10 @@ $.ajax({
         if(data.user.imgurl != ""){
             console.log(data.user.imgurl);
             $("#head").attr("src",data.user.imgurl);
+        }
+        if(data.user.username != session){
+            alert("用户信息过期，请重新登录！");
+            window.location.href = "进入系统";
         }
     }
 });

@@ -3,6 +3,7 @@ var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
 var realname;
+var session;
 //根据用户名获取其真实姓名
 $.ajax({
     type: "post",
@@ -14,6 +15,7 @@ $.ajax({
         // console.log("success");
         // console.log(data);
         realname = data.user.realname;
+        session = $("#LoginName").html();
         if(data.user.type == 0){
             $("#LoginName").html(username+"("+realname+")[管理员]");
         }
@@ -23,6 +25,10 @@ $.ajax({
         if(data.user.imgurl != ""){
             console.log(data.user.imgurl);
             $("#head").attr("src",data.user.imgurl);
+        }
+        if(data.user.username != session){
+            alert("用户信息过期，请重新登录！");
+            window.location.href = "进入系统";
         }
     }
 });

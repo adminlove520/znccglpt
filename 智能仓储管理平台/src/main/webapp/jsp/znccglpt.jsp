@@ -13,7 +13,7 @@
 			</div>
 			<div id="name">智能仓储管理平台</div>
 			<img id="head" src="/picture/system/1.jpeg"></img>
-			<div id="LoginName"></div>
+			<div id="LoginName">${username}</div>
 		</div>
 		<div id="set">
 			<ul>

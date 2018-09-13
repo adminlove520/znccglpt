@@ -11,6 +11,7 @@ import se.zust.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,6 +78,8 @@ public class UserApiController {
             jsonObject.put("result", 4); //权限错误
         }
         else{
+            HttpSession session = request.getSession();
+            session.setAttribute("username",username); //将当前登录的用户名存入session
             jsonObject.put("result", 0); //登录成功
         }
         return jsonObject;
