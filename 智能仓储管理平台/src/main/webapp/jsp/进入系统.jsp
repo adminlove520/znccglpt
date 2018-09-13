@@ -13,8 +13,10 @@
         <div id="loginInput">
             <input id="username" type="text" class="loginInput" placeholder="用户名"/>
             <input id="password" type="password" class="loginInput" placeholder="密码" /><br>
-            <input id="vcode" type="text" class="loginInput" placeholder="验证码" />
-            <img src="/ssm/doGetVcode" id="vcode_pic">
+            <div id="vcode_div">
+                <input id="vcode" type="text" placeholder="验证码" />
+                <img src="/ssm/doGetVcode" id="vcode_pic" title="看不清？">
+            </div>
             <div id="type">
                 <div id="user">
                     <input type="radio" name="type" id="usertype" class="loginRadio" value="1"/><label for="usertype">用户</label>
