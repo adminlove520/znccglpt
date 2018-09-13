@@ -2,7 +2,6 @@
 var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
-var type = parameterList[1];
 var realname;
 //根据用户名获取其真实姓名
 $.ajax({
@@ -15,10 +14,10 @@ $.ajax({
         // console.log("success");
         // console.log(data);
         realname = data.user.realname;
-        if(type == 0){
+        if(data.user.type == 0){
             $("#LoginName").html(username+"("+realname+")[管理员]");
         }
-        if(type == 1){
+        if(data.user.type == 1){
             $("#LoginName").html(username+"("+realname+")[用户]");
         }
         if(data.user.imgurl != ""){
@@ -60,7 +59,7 @@ $(".list").bind("click",function(){
 });
 // 个人中心
 $("#center").click(function (){
-    window.location.href = "znccglpt_center?"+username+"&"+type+"";
+    window.location.href = "znccglpt_center?"+username;
 });
 
 //退出

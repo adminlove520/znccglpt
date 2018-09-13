@@ -2,7 +2,6 @@
 var parameter = window.location.href.split("?")[1];
 var parameterList = parameter.split("&");
 var username = decodeURIComponent(parameterList[0]);
-var type = parameterList[1];
 $.ajax({
     type: "post",
     url: "/ssm/doSelect",
@@ -12,10 +11,10 @@ $.ajax({
     success: function(data) {
         // console.log("success");
         // console.log(data);
-        if(type == 0){
+        if(data.user.type == 0){
             $("#LoginName").html(username+"[管理员]");
         }
-        if(type == 1){
+        if(data.user.type == 1){
             $("#LoginName").html(username+"[用户]");
             $("#2").hide();
         }
@@ -59,7 +58,7 @@ $(".list").bind("click",function(){
 });
 //返回
 $("#back").click(function (){
-    window.location.href = "znccglpt?"+username+"&"+type+"";
+    window.location.href = "znccglpt?"+username;
 });
 //退出
 $("#logout").click(function (){

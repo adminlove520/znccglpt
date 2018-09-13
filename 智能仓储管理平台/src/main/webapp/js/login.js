@@ -53,7 +53,7 @@ $("#login").click(function (){
                         break;
                     case 0:
                         // console.log("登录成功!")
-                        window.location.href = "znccglpt?"+username+"&"+data.type+"";
+                        window.location.href = "znccglpt?"+username;
                         break;
                 }
             },

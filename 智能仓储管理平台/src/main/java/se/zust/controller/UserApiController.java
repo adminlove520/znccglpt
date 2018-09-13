@@ -78,7 +78,6 @@ public class UserApiController {
         }
         else{
             jsonObject.put("result", 0); //登录成功
-            jsonObject.put("type",type);
         }
         return jsonObject;
     }
