@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/ssm")
 @Api(description = "用户页面接口")
@@ -48,7 +51,9 @@ public class UserController {
 
 	@ApiOperation(value = "进入系统",notes = "系统登录页面")
 	@RequestMapping(value="/进入系统",method=RequestMethod.GET)
-	public String login(){
+	public String login(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		session.invalidate();
 		return "进入系统";
 	}
 
