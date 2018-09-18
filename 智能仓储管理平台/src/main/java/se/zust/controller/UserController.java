@@ -58,31 +58,36 @@ public class UserController {
 	}
 
 	@ApiOperation(value = "系统框架",notes = "系统框架页面")
-	@RequestMapping(value="/znccglpt")
+	@RequestMapping(value="/znccglpt",method=RequestMethod.GET)
 	public String znccglpt(){
 		return "znccglpt";
 	}
 
 	@ApiOperation(value = "系统主页",notes = "智能仓储管理平台系统主页")
-	@RequestMapping(value="/znccglpt_index")
+	@RequestMapping(value="/znccglpt_index",method=RequestMethod.GET)
 	public String znccglpt_index(){
 		return "znccglpt_index";
 	}
 
 	@ApiOperation(value = "个人中心",notes = "个人中心页面")
-	@RequestMapping(value="/znccglpt_center")
+	@RequestMapping(value="/znccglpt_center",method=RequestMethod.GET)
 	public String usercenter(){
 		return "znccglpt_center";
 	}
 
+	/*
+	在jsp中使用post提交dataform表单数据
+	如果使用method=RequestMethod.GET
+	会出现Request method 'POST' not supported
+	 */
 	@ApiOperation(value = "个人资料",notes = "个人资料展示页面")
-	@RequestMapping(value="/znccglpt_userinfo")
+	@RequestMapping(value="/znccglpt_userinfo",method=RequestMethod.POST)
 	public String userinfo(){
 		return "znccglpt_userinfo";
 	}
 
 	@ApiOperation(value = "用户信息管理",notes = "对当前管理员名下的用户进行管理")
-	@RequestMapping(value="/znccglpt_usermanage")
+	@RequestMapping(value="/znccglpt_usermanage",method=RequestMethod.POST)
 	public String usermanage(){
 		return "znccglpt_usermanage";
 	}
