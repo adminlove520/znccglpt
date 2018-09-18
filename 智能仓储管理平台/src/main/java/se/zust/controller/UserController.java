@@ -81,13 +81,13 @@ public class UserController {
 	会出现Request method 'POST' not supported
 	 */
 	@ApiOperation(value = "个人资料",notes = "个人资料展示页面")
-	@RequestMapping(value="/znccglpt_userinfo",method=RequestMethod.POST)
+	@RequestMapping(value="/znccglpt_userinfo")
 	public String userinfo(){
 		return "znccglpt_userinfo";
 	}
 
 	@ApiOperation(value = "用户信息管理",notes = "对当前管理员名下的用户进行管理")
-	@RequestMapping(value="/znccglpt_usermanage",method=RequestMethod.POST)
+	@RequestMapping(value="/znccglpt_usermanage")
 	public String usermanage(){
 		return "znccglpt_usermanage";
 	}
